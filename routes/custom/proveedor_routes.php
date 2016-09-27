@@ -10,6 +10,4 @@ Route::get('/', function () {
     return view('proveedores.index.index');
 });
 
-Route::get('disponibilidad', function () {
-    return view('proveedores.disponibilidad.disponibilidad');
-});
+Route::get('disponibilidad','Disponibilidad@index');

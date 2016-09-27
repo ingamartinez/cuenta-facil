@@ -4,7 +4,7 @@
 @extends('layouts.dashboard')
 
 @section('title')
-    Tienda | Proveedor
+    Cuenta Fácil | Disponibilidad
 @endsection
 
 @section('nagivation')
@@ -35,7 +35,7 @@
             <div class="nav-collapse">
                 <ul class="nav">
                     <li>
-                        <a  href="/">
+                        <a href="/">
                             <span aria-hidden="true" class="se7en-home"></span>Dashboard</a>
                     </li>
                     <li>
@@ -56,7 +56,7 @@
 @section('container')
     <div class="page-title">
         <h1>
-            Listado de Proveedores
+            Listado de Productos
         </h1>
     </div>
 
@@ -65,12 +65,8 @@
         <div class="col-lg-12">
             <div class="widget-container fluid-height clearfix">
                 <div class="heading">
-                    <i class="fa fa-table"></i>Listado de Proveedores
-
-                </div>
-                <div class="heading">
                     <button class="btn btn-success" data-toggle="modal" href="#modal-agregar-proveedor">
-                        <i class="fa fa-plus-square"></i>Agregar Proveedor
+                        <i class="fa fa-plus-square"></i>Agregar Producto
                     </button>
 
                 </div>
@@ -80,31 +76,66 @@
                         <thead>
 
                         <th>
-                            Nombre Proveedor
+                            Cantidad
                         </th>
                         <th>
-                            NIT
+                            Producto
                         </th>
                         <th>
-                            Categoría
+                            Codigo
+                        </th>
+                        <th>
+                            Precio Ofrecido
+                        </th>
+                        <th>
+                            Presentación completa
+                        </th>
+                        <th>
+                            Estado
                         </th>
                         <th></th>
                         </thead>
                         <tbody>
-                        {{--@foreach($proveedores as $proveedor)--}}
-                        {{--<tr data-id="{{$proveedor->proveedor_id}}">--}}
-                        {{--<td>{{$proveedor->proveedor_nombre}}</td>--}}
-                        {{--<td>{{$proveedor->proveedor_nit}}</td>--}}
-                        {{--<td>{{$proveedor->categoria_nombre}}</td>--}}
-                        {{--<td class="actions">--}}
-                        {{--<div class="action-buttons">--}}
-                        {{--<a class="table-actions ver-proveedor" href="#"><i class="fa fa-eye"></i></a>--}}
-                        {{--<a class="table-actions editar-proveedor" href="#"><i class="fa fa-pencil"></i></a>--}}
-                        {{--<a class="table-actions eliminar-proveedor" href="#"><i class="fa fa-trash-o"></i></a>--}}
-                        {{--</div>--}}
-                        {{--</td>--}}
-                        {{--</tr>--}}
-                        {{--@endforeach--}}
+                        @foreach($productos_proveedores as $productos)
+                            <tr data-id_global="{{$productos->id_producto_global}}"
+                                data-id_local="{{$productos->id_producto_local}}">
+
+                                <td>{{$productos->cantidad}}</td>
+                                <td>{{$productos->nombre}}</td>
+                                <td>{{$productos->codigo}}</td>
+                                <td>${{$productos->precio}}</td>
+                                <td>{{$productos->presentacion.' de '.$productos->medida.' '.$productos->unidad_medida}}</td>
+
+
+                                @if ($productos->estado === 'disponible')
+                                    <td>
+                                        <span class="label label-success">Disponible</span>
+                                    </td>
+                                @elseif ($productos->estado === 'agotado')
+                                    <td>
+                                        <span class="label label-danger">Agotado</span>
+                                    </td>
+                                @else
+                                    <td>
+                                        <span class="label label-warning">Descontinuado</span>
+                                    </td>
+                                @endif
+
+                                <td class="actions">
+                                    <div class="action-buttons">
+                                        <a class="table-actions ver-proveedor" href="#">
+                                            <i class="fa fa-eye"></i>
+                                        </a>
+                                        <a class="table-actions editar-proveedor" href="#">
+                                            <i class="fa fa-pencil"></i>
+                                        </a>
+                                        <a class="table-actions eliminar-proveedor" href="#">
+                                            <i class="fa fa-trash-o"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
 
                         </tbody>
                     </table>
