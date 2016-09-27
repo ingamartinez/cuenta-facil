@@ -11,6 +11,16 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+//Route::get('/', function () {
+//    return view('welcome');
+//});
+
+Route::resource('log','LogController');
+Route::get('logout','LogController@Logout');
+
+
+Route::group([
+    'middleware' => 'proveedor_auth'
+], function ($router) {
+    require base_path('routes/custom/proveedor_routes.php');
 });
