@@ -24,3 +24,17 @@ Route::group([
 ], function ($router) {
     require base_path('routes/custom/proveedor_routes.php');
 });
+
+Route::get('usuario', function () {
+
+    $proveedor = new \App\Models\Proveedor();
+    $proveedor->nombre = 'Coca Cola';
+    $proveedor->email= 'cc@cc.com';
+    $proveedor->password= Hash::make('123');
+    $proveedor->tipo= 'formal';
+    $proveedor->nit= '1047473499';
+
+    $proveedor->save();
+
+
+});
