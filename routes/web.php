@@ -18,6 +18,9 @@
 Route::resource('log','LogController');
 Route::get('logout','LogController@Logout');
 
+Route::post('proveedor',
+    ['uses' => 'ProveedorController@store', 'as' => 'proveedor.store']);
+
 
 Route::group([
     'middleware' => 'proveedor_auth'

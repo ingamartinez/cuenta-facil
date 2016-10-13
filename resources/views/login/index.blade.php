@@ -55,6 +55,7 @@
 </head>
 <body class="login1">
 <!-- Login Screen -->
+@include('login.includes.registrar')
 <div class="login-wrapper">
     <div class="login-container">
         <img width="250" height="75" src="images/LogoUnisinu.png"/>
@@ -66,7 +67,8 @@
             <input class="form-control" name="password" placeholder="Contraseña" type="password"><input type="submit" value="&#xf054;">
         </div>
         <div class="form-options clearfix">
-            <a class="pull-right" href="#">Forgot password?</a>
+            <a class="pull-right" data-toggle="modal" href="#modal-registrar">Registrate</a>
+
         </div>
 
     </div>

@@ -1,5 +1,5 @@
 @include('proveedores.producto.includes.addProducto')
-{{--@include('proveedor.includes.editProveedor')--}}
+@include('proveedores.producto.includes.editProducto')
 
 @extends('layouts.dashboard')
 
@@ -99,13 +99,10 @@
 
                                 <td class="actions">
                                     <div class="action-buttons">
-                                        <a class="table-actions ver-proveedor" href="#">
-                                            <i class="fa fa-eye"></i>
-                                        </a>
-                                        <a class="table-actions editar-proveedor" href="#">
+                                        <a class="table-actions editar-producto" href="#">
                                             <i class="fa fa-pencil"></i>
                                         </a>
-                                        <a class="table-actions eliminar-proveedor" href="#">
+                                        <a class="table-actions eliminar-producto" href="#">
                                             <i class="fa fa-trash-o"></i>
                                         </a>
                                     </div>
@@ -148,13 +145,13 @@
         });
     });
 
-    $('.editar-proveedor').on('click', function (e) {
+    $('.editar-producto').on('click', function (e) {
         e.preventDefault();
         var fila = $(this).parents('tr');
         var id = fila.data('id');
         $.ajax({
             type: 'GET',
-            url: 'proveedor/' + id,
+            url: 'producto/' + id,
             success: function (data) {
                 console.log(data);
                 $('#modal-editar-nombre-proveedor').val(data.nombre);

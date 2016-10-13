@@ -64,8 +64,8 @@
 
 
 
-{{--<script src="http://code.jquery.com/jquery-1.10.2.min.js" type="text/javascript"></script>--}}
-<script src="javascripts/jquery.js" type="text/javascript"></script>
+<script src="http://code.jquery.com/jquery-1.10.2.min.js" type="text/javascript"></script>
+{{--<script src="javascripts/jquery.js" type="text/javascript"></script>--}}
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js" type="text/javascript"></script>
 <script src="javascripts/bootstrap.min.js" type="text/javascript"></script>
 <script src="javascripts/raphael.min.js" type="text/javascript"></script>

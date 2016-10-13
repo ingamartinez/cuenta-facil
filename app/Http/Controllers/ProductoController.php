@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Presentacion;
+use App\Models\Producto;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use DB;
 use Auth;
 use Redirect;
+use Response;
 
 class ProductoController extends Controller
 {
@@ -69,7 +71,14 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+//        dd($request->all());
+        $producto=new Producto($request->all());
+        $producto->presentacion_id=$request->presentacion;
+        $producto->unidad_medida_id=$request->unidad_medida;
+
+        $producto->save();
+
+        return redirect()->back();
     }
 
     /**
@@ -80,7 +89,9 @@ class ProductoController extends Controller
      */
     public function show($id)
     {
-        //
+        $producto= Producto::findOrFail($id);
+
+        return Response::json($producto);
     }
 
     /**

@@ -1,14 +1,15 @@
-<div class="modal fade" id="modal-agregar-producto">
+<div class="modal fade" id="modal-editar-producto">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button aria-hidden="true" class="close" data-dismiss="modal" type="button">&times;</button>
                 <h4 class="modal-title">
-                    Agregar producto
+                    Editar producto
                 </h4>
             </div>
             <div class="modal-body">
-                {!! Form::open(['route'=>'producto.store','method'=> 'POST','autocomplete'=>'off' ,'id'=>'form-agregar-producto']) !!}
+                {!! Form::open(['route'=>['producto.store',':PRODUCTO_ID'],'method'=> 'POST','autocomplete'=>'off' ,'id'=>'form-editar-producto']) !!}
+                    <input id="modal-editar-id-producto" name="id-producto" type="hidden" value="">
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group">
@@ -76,6 +77,7 @@
 
                 </div>
             </div>
+            </div>
             <div class="modal-footer">
                 <button class="btn btn-primary" type="submit">Guardar</button>
                 <button class="btn btn-default-outline" data-dismiss="modal" type="button">Cerrar</button>
@@ -85,59 +87,3 @@
     </div>
 </div>
 </div>
-
-@push('script')
-
-<script>
-
-    var presentacion="";
-    var unidad_medida="";
-    var medida="";
-
-    $('.select-presentacion').on('change', function() {
-        presentacion = $(".select-presentacion>option:selected").html();
-        producto();
-    });
-
-    $('.select-unidad_medida').on('change', function() {
-        unidad_medida= $(".select-unidad_medida>option:selected").html();
-        producto();
-    });
-
-    $('#text_medida').on('keyup', function() {
-        medida= $(this).val();
-        producto();
-    });
-    $('#nombre').on('keyup', function() {
-        $('#label_producto').text($(this).val());
-    });
-
-    function producto() {
-        $('#label_id').text(presentacion+' de '+medida+' '+unidad_medida);
-    }
-
-
-    $('#nombre').select2({
-        theme: "bootstrap",
-        language: "es",
-        placeholder: 'Enter a tag',
-        ajax: {
-            dataType: 'json',
-            url: '{{ url("api/productos") }}',
-            delay: 400,
-            data: function(params) {
-                return {
-                    term: params.term
-                }
-            },
-            processResults: function (data, page) {
-                return {
-                    results: data
-                };
-            },
-        }
-    });
-
-</script>
-
-@endpush
