@@ -16,6 +16,7 @@
     <link href="stylesheets/fullcalendar.css" media="all" rel="stylesheet" type="text/css"/>
     <link href="stylesheets/wizard.css" media="all" rel="stylesheet" type="text/css"/>
     <link href="stylesheets/select2.css" media="all" rel="stylesheet" type="text/css"/>
+    <link href="stylesheets/select2-bootstrap.css" media="all" rel="stylesheet" type="text/css"/>
     <link href="stylesheets/morris.css" media="all" rel="stylesheet" type="text/css"/>
     <link href="stylesheets/datatables.css" media="all" rel="stylesheet" type="text/css"/>
     <link href="stylesheets/datepicker.css" media="all" rel="stylesheet" type="text/css"/>
@@ -43,6 +44,7 @@
 
 
 
+
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
 </head>
 <body class="page-header-fixed bg-1">
@@ -62,7 +64,8 @@
 
 
 
-<script src="http://code.jquery.com/jquery-1.10.2.min.js" type="text/javascript"></script>
+{{--<script src="http://code.jquery.com/jquery-1.10.2.min.js" type="text/javascript"></script>--}}
+<script src="javascripts/jquery.js" type="text/javascript"></script>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js" type="text/javascript"></script>
 <script src="javascripts/bootstrap.min.js" type="text/javascript"></script>
 <script src="javascripts/raphael.min.js" type="text/javascript"></script>
@@ -85,7 +88,6 @@
 <script src="javascripts/select2.js" type="text/javascript"></script>
 <script src="javascripts/styleswitcher.js" type="text/javascript"></script>
 <script src="javascripts/wysiwyg.js" type="text/javascript"></script>
-<script src="javascripts/typeahead.js" type="text/javascript"></script>
 <script src="javascripts/summernote.min.js" type="text/javascript"></script>
 <script src="javascripts/jquery.inputmask.min.js" type="text/javascript"></script>
 <script src="javascripts/jquery.validate.js" type="text/javascript"></script>
@@ -94,7 +96,6 @@
 <script src="javascripts/bootstrap-timepicker.js" type="text/javascript"></script>
 <script src="javascripts/bootstrap-colorpicker.js" type="text/javascript"></script>
 <script src="javascripts/bootstrap-switch.min.js" type="text/javascript"></script>
-<script src="javascripts/typeahead.js" type="text/javascript"></script>
 <script src="javascripts/spin.min.js" type="text/javascript"></script>
 <script src="javascripts/ladda.min.js" type="text/javascript"></script>
 <script src="javascripts/moment.js" type="text/javascript"></script>
@@ -112,6 +113,8 @@
 <script src="javascripts/dropzone.js" type="text/javascript"></script>
 <script src="javascripts/main.js" type="text/javascript"></script>
 <script src="javascripts/respond.js" type="text/javascript"></script>
+<script src="javascripts/jquery.autocomplete.js" type="text/javascript"></script>
+
 
 @stack('script')
 </body>

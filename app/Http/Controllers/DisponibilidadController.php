@@ -9,7 +9,7 @@ use DB;
 use Auth;
 use Redirect;
 
-class Disponibilidad extends Controller
+class DisponibilidadController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -36,26 +36,6 @@ class Disponibilidad extends Controller
                 'producto_proveedor.estado AS estado')
             ->where('proveedor.id','=',Auth::guard('web_proveedor')->user()->id)
             ->get();
-//        SELECT
-//            producto.id AS id_producto_global,
-//            producto_proveedor.id AS id_producto_local,
-//            producto_proveedor.cantidad AS cantidad,
-//            producto.nombre AS nombre,
-//            producto.codigo AS codigo,
-//            producto_proveedor.precio_ofrecido AS precio,
-//            presentacion.nombre AS presentacion,
-//            producto.medida AS medida,
-//            unidad_medida.nombre AS unidad_medida,
-//            producto_proveedor.estado AS estado
-//            FROM
-//            producto_proveedor
-//            INNER JOIN producto ON producto_proveedor.producto_id = producto.id
-//            INNER JOIN presentacion ON producto.presentacion_id = presentacion.id
-//            INNER JOIN unidad_medida ON producto.unidad_medida_id = unidad_medida.id
-//            INNER JOIN proveedor ON producto_proveedor.proveedor_id = proveedor.id
-//            WHERE
-//            proveedor.id = 1
-//        dd($productos_proveedores);
 
         return view('proveedores.disponibilidad.disponibilidad',compact('productos_proveedores'));
     }

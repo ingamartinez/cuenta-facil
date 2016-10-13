@@ -1,4 +1,4 @@
-{{--@include('proveedor.includes.addProveedor')--}}
+@include('proveedores.producto.includes.addProducto')
 {{--@include('proveedor.includes.editProveedor')--}}
 
 @extends('layouts.dashboard')
@@ -39,11 +39,11 @@
                             <span aria-hidden="true" class="se7en-home"></span>Dashboard</a>
                     </li>
                     <li>
-                        <a href="producto">
+                        <a class="current" href="producto">
                             <span aria-hidden="true" class="se7en-flag"></span>Producto</a>
                     </li>
                     <li>
-                        <a class="current" href="disponibilidad">
+                        <a href="disponibilidad">
                             <span aria-hidden="true" class="se7en-flag"></span>Disponibilidad</a>
                     </li>
                     <li>
@@ -69,7 +69,7 @@
         <div class="col-lg-12">
             <div class="widget-container fluid-height clearfix">
                 <div class="heading">
-                    <button class="btn btn-success" data-toggle="modal" href="#modal-agregar-proveedor">
+                    <button class="btn btn-success" data-toggle="modal" href="#modal-agregar-producto">
                         <i class="fa fa-plus-square"></i>Agregar Producto
                     </button>
 
@@ -80,50 +80,22 @@
                         <thead>
 
                         <th>
-                            Cantidad
+                            Codigo
                         </th>
                         <th>
                             Producto
                         </th>
                         <th>
-                            Codigo
-                        </th>
-                        <th>
-                            Precio Ofrecido
-                        </th>
-                        <th>
                             Presentación completa
-                        </th>
-                        <th>
-                            Estado
                         </th>
                         <th></th>
                         </thead>
                         <tbody>
-                        @foreach($productos_proveedores as $productos)
-                            <tr data-id_global="{{$productos->id_producto_global}}"
-                                data-id_local="{{$productos->id_producto_local}}">
-
-                                <td>{{$productos->cantidad}}</td>
-                                <td>{{$productos->nombre}}</td>
-                                <td>{{$productos->codigo}}</td>
-                                <td>${{$productos->precio}}</td>
-                                <td>{{$productos->presentacion.' de '.$productos->medida.' '.$productos->unidad_medida}}</td>
-
-
-                                @if ($productos->estado === 'disponible')
-                                    <td>
-                                        <span class="label label-success">Disponible</span>
-                                    </td>
-                                @elseif ($productos->estado === 'agotado')
-                                    <td>
-                                        <span class="label label-danger">Agotado</span>
-                                    </td>
-                                @else
-                                    <td>
-                                        <span class="label label-warning">Descontinuado</span>
-                                    </td>
-                                @endif
+                        @foreach($productos as $producto)
+                            <tr data-id="{{$producto->id}}">
+                                <td>{{$producto->codigo}}</td>
+                                <td>{{$producto->nombre}}</td>
+                                <td>{{$producto->presentacion.' de '.$producto->medida.' '.$producto->unidad_medida}}</td>
 
                                 <td class="actions">
                                     <div class="action-buttons">
@@ -225,6 +197,7 @@
             }
         });
     });
+
 
 </script>
 
