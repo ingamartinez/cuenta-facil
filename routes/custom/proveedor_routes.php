@@ -12,4 +12,7 @@ Route::get('/', function () {
 
 Route::get('disponibilidad','DisponibilidadController@index');
 
+Route::post('dispnibilidad',
+    ['uses' => 'DisponibilidadController@store', 'as' => 'disponibilidad.store']);
+
 Route::resource('producto','ProductoController');

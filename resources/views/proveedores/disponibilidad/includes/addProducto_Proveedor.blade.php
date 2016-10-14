@@ -8,26 +8,17 @@
                 </h4>
             </div>
             <div class="modal-body">
-                {!! Form::open(['route'=>'producto.store','method'=> 'POST','autocomplete'=>'off' ,'id'=>'form-agregar-producto']) !!}
+                {!! Form::open(['route'=>'disponibilidad.store','method'=> 'POST','autocomplete'=>'off' ,'id'=>'form-agregar-producto']) !!}
                 <div class="row">
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label for="codigo">Codigo</label>
-                            <input type="text" class="form-control" name="codigo" placeholder="Codigo">
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label for="nombre">Nombre</label>
-                            <input type="text" class="form-control nombre" name="nombre" placeholder="Nombre">
-                            {{--<select style="width: 100%" class="form-control" name="nombre" id="nombre" placeholder="Nombre">--}}
-                            {{--</select>--}}
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label for="iva">IVA</label>
-                            <input type="text" class="form-control" name="iva" placeholder="IVA" value="0">
+                    <div class="col-sm-12">
+                        <div class="form-group formPresentacion">
+                            {!! Form::label('producto','Producto') !!}
+                            <select class="form-control select-presentacion" name="producto" id="producto">
+                                <option>Seleccione... </option>
+                                @foreach($productos as $producto)
+                                <option value='{{$producto->id}}'>{{$producto->nombre.' - '. $producto->presentacion.' de '.$producto->medida.' '.$producto->unidad_medida}}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -35,34 +26,28 @@
                     <div class="col-sm-4">
                         <div class="form-group">
                             <div class="form-group formPresentacion">
-                                {!! Form::label('presentacion','Presentacion') !!}
-                                <select class="form-control select-presentacion" name="presentacion" id="presentacion">
-                                    <option>Seleccione... </option>
-                                    {{--@foreach($presentaciones as $presentacion)--}}
-                                        {{--<option value='{{$presentacion->id}}'>{{$presentacion->nombre}}</option>--}}
-                                    {{--@endforeach--}}
-                                </select>
+                                {!! Form::label('cantidad','Cantidad') !!}
+                                <input type="text" class="form-control text_medida" name="cantidad" placeholder="Cantidad">
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <label for="medida">Medida</label>
-                            <input type="text" class="form-control text_medida" name="medida" placeholder="Medida">
+                            <label for="precio_ofrecido">Precio Ofrecido</label>
+                            <input type="text" class="form-control text_medida" name="precio_ofrecido" placeholder="Precio Ofrecido">
                         </div>
                     </div>
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <div class="form-group formUnidad_medida">
-                                {!! Form::label('unidad_medida','Unidad de Medida') !!}
-                                <select class="form-control select-unidad_medida" id="" name="unidad_medida"
-                                        id="unidad_medida">
-                                    <option>Seleccione... </option>
-                                    {{--@foreach($unidades_medidas as $unidad_medida)--}}
-                                        {{--<option value='{{$unidad_medida->id}}'>{{$unidad_medida->nombre}}</option>--}}
-                                    {{--@endforeach--}}
-                                </select>
-                            </div>
+                            <label for="estado">Estado</label>
+                            <select class="form-control select-presentacion" name="presentacion" id="modal-editar-presentacion-producto">
+                                <option>Seleccione... </option>
+
+                                <option value='disponible'>Disponible</option>
+                                <option value='agotado'>Agotado</option>
+                                <option value='descontinuado'>Descontinuado</option>
+
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -90,53 +75,53 @@
 
 <script>
 
-    var presentacion="";
-    var unidad_medida="";
-    var medida="";
+//    var presentacion="";
+//    var unidad_medida="";
+//    var medida="";
+//
+//    $('.select-presentacion').on('change', function() {
+//        presentacion = $(".select-presentacion>option:selected").html();
+//        producto();
+//    });
+//
+//    $('.select-unidad_medida').on('change', function() {
+//        unidad_medida= $(".select-unidad_medida>option:selected").html();
+//        producto();
+//    });
+//
+//    $('.text_medida').on('keyup', function() {
+//        medida= $(this).val();
+//        producto();
+//    });
+//    $('.nombre').on('keyup', function() {
+//        $('#label_producto').text($(this).val());
+//    });
+//
+//    function producto() {
+//        $('#label_producto_completo').text(presentacion+' de '+medida+' '+unidad_medida);
+//    }
 
-    $('.select-presentacion').on('change', function() {
-        presentacion = $(".select-presentacion>option:selected").html();
-        producto();
-    });
 
-    $('.select-unidad_medida').on('change', function() {
-        unidad_medida= $(".select-unidad_medida>option:selected").html();
-        producto();
-    });
-
-    $('.text_medida').on('keyup', function() {
-        medida= $(this).val();
-        producto();
-    });
-    $('.nombre').on('keyup', function() {
-        $('#label_producto').text($(this).val());
-    });
-
-    function producto() {
-        $('#label_producto_completo').text(presentacion+' de '+medida+' '+unidad_medida);
-    }
-
-
-    $('#nombre').select2({
-        theme: "bootstrap",
-        language: "es",
-        placeholder: 'Enter a tag',
-        ajax: {
-            dataType: 'json',
-            url: '{{ url("api/productos") }}',
-            delay: 400,
-            data: function(params) {
-                return {
-                    term: params.term
-                }
-            },
-            processResults: function (data, page) {
-                return {
-                    results: data
-                };
-            },
-        }
-    });
+    {{--$('#nombre').select2({--}}
+        {{--theme: "bootstrap",--}}
+        {{--language: "es",--}}
+        {{--placeholder: 'Enter a tag',--}}
+        {{--ajax: {--}}
+            {{--dataType: 'json',--}}
+            {{--url: '{{ url("api/productos") }}',--}}
+            {{--delay: 400,--}}
+            {{--data: function(params) {--}}
+                {{--return {--}}
+                    {{--term: params.term--}}
+                {{--}--}}
+            {{--},--}}
+            {{--processResults: function (data, page) {--}}
+                {{--return {--}}
+                    {{--results: data--}}
+                {{--};--}}
+            {{--},--}}
+        {{--}--}}
+    {{--});--}}
 
 </script>
 
