@@ -145,39 +145,7 @@
         });
     });
 
-    $('.editar-producto').on('click', function (e) {
-        e.preventDefault();
-        var fila = $(this).parents('tr');
-        var id = fila.data('id');
-        $.ajax({
-            type: 'GET',
-            url: 'producto/' + id,
-            success: function (data) {
-                console.log(data);
-                $('#modal-editar-nombre-proveedor').val(data.nombre);
-                $('#modal-editar-nit-proveedor').val(data.nit);
-                $('select[id="modal-editar-categoria-proveedor"]').val(data.categoria_id);
 
-                $("#modal-editar-id-proveedor").val(data.id);
-
-                $("#modal-editar-proveedor").modal('toggle');
-            }
-        });
-    });
-
-    $('#form-editar-proveedor').on('submit', function (e) {
-        e.preventDefault();
-        var id = $("#modal-editar-id-proveedor").val();
-
-        $.ajax({
-            type: 'PUT',
-            url: 'proveedor/' + id,
-            data: $('#form-editar-proveedor').serialize(),
-            success: function () {
-                location.reload();
-            }
-        });
-    });
 
     $('.eliminar-proveedor').on('click', function (e) {
         e.preventDefault();

@@ -102,7 +102,7 @@ class ProductoController extends Controller
      */
     public function edit($id)
     {
-        //
+
     }
 
     /**
@@ -114,7 +114,18 @@ class ProductoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+//        dd($request->all());
+        $producto = Producto::findOrFail($id);
+        $producto->codigo= $request->codigo;
+        $producto->nombre= $request->nombre;
+        $producto->medida= $request->medida;
+        $producto->iva= $request->iva;
+        $producto->presentacion_id= $request->presentacion;
+        $producto->unidad_medida_id= $request->unidad_medida;
+
+        $producto->save();
+
+        return Response::json('ok',200);
     }
 
     /**
