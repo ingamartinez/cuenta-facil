@@ -40,14 +40,14 @@
                     </li>
                     <li>
                         <a class="current" href="producto">
-                            <span aria-hidden="true" class="se7en-flag"></span>Producto</a>
+                            <span aria-hidden="true" class="se7en-tables"></span>Producto</a>
                     </li>
                     <li>
                         <a href="disponibilidad">
                             <span aria-hidden="true" class="se7en-flag"></span>Disponibilidad</a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="vitrina">
                             <span aria-hidden="true" class="se7en-feed"></span>Vitrina</a>
                     </li>
 

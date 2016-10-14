@@ -1,5 +1,6 @@
 @include('proveedores.disponibilidad.includes.addProducto_Proveedor')
-{{--@include('proveedor.includes.editProveedor')--}}
+@include('proveedores.disponibilidad.includes.editProductoProveedor')
+
 
 @extends('layouts.dashboard')
 
@@ -40,14 +41,14 @@
                     </li>
                     <li>
                         <a href="producto">
-                            <span aria-hidden="true" class="se7en-flag"></span>Producto</a>
+                            <span aria-hidden="true" class="se7en-tables"></span>Producto</a>
                     </li>
                     <li>
                         <a class="current" href="disponibilidad">
                             <span aria-hidden="true" class="se7en-flag"></span>Disponibilidad</a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="vitrina">
                             <span aria-hidden="true" class="se7en-feed"></span>Vitrina</a>
                     </li>
 
@@ -101,8 +102,9 @@
                         </thead>
                         <tbody>
                         @foreach($productos_proveedores as $productos)
-                            <tr data-id_global="{{$productos->id_producto_global}}"
-                                data-id_local="{{$productos->id_producto_local}}">
+                            <tr
+                                {{--data-id_global="{{$productos->id_producto_global}}"--}}
+                                data-id="{{$productos->id_producto_local}}">
 
                                 <td>{{$productos->cantidad}}</td>
                                 <td>{{$productos->nombre}}</td>
@@ -127,14 +129,14 @@
 
                                 <td class="actions">
                                     <div class="action-buttons">
-                                        <a class="table-actions ver-proveedor" href="#">
-                                            <i class="fa fa-eye"></i>
-                                        </a>
-                                        <a class="table-actions editar-proveedor" href="#">
+                                        <a class="table-actions editar-producto_proveedor" href="#">
                                             <i class="fa fa-pencil"></i>
                                         </a>
-                                        <a class="table-actions eliminar-proveedor" href="#">
+                                        <a class="table-actions eliminar-producto_proveedor" href="#">
                                             <i class="fa fa-trash-o"></i>
+                                        </a>
+                                        <a class="table-actions ofrecer-producto_proveedor" href="#">
+                                            <i class="fa fa-arrow-right"></i>
                                         </a>
                                     </div>
                                 </td>
@@ -176,39 +178,6 @@
         });
     });
 
-    $('.editar-proveedor').on('click', function (e) {
-        e.preventDefault();
-        var fila = $(this).parents('tr');
-        var id = fila.data('id');
-        $.ajax({
-            type: 'GET',
-            url: 'proveedor/' + id,
-            success: function (data) {
-                console.log(data);
-                $('#modal-editar-nombre-proveedor').val(data.nombre);
-                $('#modal-editar-nit-proveedor').val(data.nit);
-                $('select[id="modal-editar-categoria-proveedor"]').val(data.categoria_id);
-
-                $("#modal-editar-id-proveedor").val(data.id);
-
-                $("#modal-editar-proveedor").modal('toggle');
-            }
-        });
-    });
-
-    $('#form-editar-proveedor').on('submit', function (e) {
-        e.preventDefault();
-        var id = $("#modal-editar-id-proveedor").val();
-
-        $.ajax({
-            type: 'PUT',
-            url: 'proveedor/' + id,
-            data: $('#form-editar-proveedor').serialize(),
-            success: function () {
-                location.reload();
-            }
-        });
-    });
 
     $('.eliminar-proveedor').on('click', function (e) {
         e.preventDefault();

@@ -10,9 +10,11 @@ Route::get('/', function () {
     return view('proveedores.index.index');
 });
 
-Route::get('disponibilidad','DisponibilidadController@index');
-
-Route::post('dispnibilidad',
-    ['uses' => 'DisponibilidadController@store', 'as' => 'disponibilidad.store']);
+//Route::get('disponibilidad','DisponibilidadController@index');
+//
+//Route::post('dispnibilidad',
+//    ['uses' => 'DisponibilidadController@store', 'as' => 'disponibilidad.store']);
 
 Route::resource('producto','ProductoController');
+
+Route::resource('disponibilidad','DisponibilidadController');

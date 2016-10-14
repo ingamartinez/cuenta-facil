@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProductoProveedor;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use DB;
 use Auth;
 use Redirect;
+use Response;
 
 class DisponibilidadController extends Controller
 {
@@ -35,7 +37,7 @@ class DisponibilidadController extends Controller
                 'unidad_medida.nombre AS unidad_medida',
                 'producto_proveedor.estado AS estado')
             ->where('proveedor.id','=',Auth::guard('web_proveedor')->user()->id)
-            ->get();
+        ->get();
 
         $productos= DB::table('producto')
             ->join('unidad_medida', 'producto.unidad_medida_id', '=', 'unidad_medida.id')
@@ -49,7 +51,7 @@ class DisponibilidadController extends Controller
                 'unidad_medida.nombre AS unidad_medida'
             )
             ->orderBy('nombre', 'asc')
-            ->get();
+        ->get();
 
         return view('proveedores.disponibilidad.disponibilidad',compact('productos_proveedores','productos'));
     }
@@ -73,7 +75,14 @@ class DisponibilidadController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $producto_proveedor=new ProductoProveedor($request->all());
+
+        $producto_proveedor->proveedor_id=Auth::guard('web_proveedor')->user()->id;
+        $producto_proveedor->producto_id=$request->producto;
+
+        $producto_proveedor->save();
+
+        return redirect()->back();
     }
 
     /**
@@ -84,7 +93,9 @@ class DisponibilidadController extends Controller
      */
     public function show($id)
     {
-        //
+        $producto= ProductoProveedor::findOrFail($id);
+
+        return Response::json($producto);
     }
 
     /**
@@ -107,7 +118,14 @@ class DisponibilidadController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $producto_proveedor = ProductoProveedor::findOrFail($id);
+        $producto_proveedor->cantidad= $request->cantidad;
+        $producto_proveedor->precio_ofrecido= $request->precio_ofrecido;
+        $producto_proveedor->estado= $request->estado;
+
+        $producto_proveedor->save();
+
+        return Response::json('ok',200);
     }
 
     /**
