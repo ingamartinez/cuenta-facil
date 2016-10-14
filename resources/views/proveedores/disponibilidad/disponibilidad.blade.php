@@ -1,4 +1,4 @@
-{{--@include('proveedor.includes.addProveedor')--}}
+@include('proveedores.disponibilidad.includes.addProducto_Proveedor')
 {{--@include('proveedor.includes.editProveedor')--}}
 
 @extends('layouts.dashboard')
@@ -69,7 +69,7 @@
         <div class="col-lg-12">
             <div class="widget-container fluid-height clearfix">
                 <div class="heading">
-                    <button class="btn btn-success" data-toggle="modal" href="#modal-agregar-proveedor">
+                    <button class="btn btn-success" data-toggle="modal" href="#modal-agregar-producto_proveedor">
                         <i class="fa fa-plus-square"></i>Agregar Producto
                     </button>
 

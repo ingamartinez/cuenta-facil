@@ -1,4 +1,4 @@
-<div class="modal fade" id="modal-agregar-producto">
+<div class="modal fade" id="modal-agregar-producto_proveedor">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -38,9 +38,9 @@
                                 {!! Form::label('presentacion','Presentacion') !!}
                                 <select class="form-control select-presentacion" name="presentacion" id="presentacion">
                                     <option>Seleccione... </option>
-                                    @foreach($presentaciones as $presentacion)
-                                        <option value='{{$presentacion->id}}'>{{$presentacion->nombre}}</option>
-                                    @endforeach
+                                    {{--@foreach($presentaciones as $presentacion)--}}
+                                        {{--<option value='{{$presentacion->id}}'>{{$presentacion->nombre}}</option>--}}
+                                    {{--@endforeach--}}
                                 </select>
                             </div>
                         </div>
@@ -58,9 +58,9 @@
                                 <select class="form-control select-unidad_medida" id="" name="unidad_medida"
                                         id="unidad_medida">
                                     <option>Seleccione... </option>
-                                    @foreach($unidades_medidas as $unidad_medida)
-                                        <option value='{{$unidad_medida->id}}'>{{$unidad_medida->nombre}}</option>
-                                    @endforeach
+                                    {{--@foreach($unidades_medidas as $unidad_medida)--}}
+                                        {{--<option value='{{$unidad_medida->id}}'>{{$unidad_medida->nombre}}</option>--}}
+                                    {{--@endforeach--}}
                                 </select>
                             </div>
                         </div>
