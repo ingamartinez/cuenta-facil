@@ -53,30 +53,10 @@ class DisponibilidadController extends Controller
             ->whereNotIn('producto.id',function ($query) {
                 $query->select('producto_proveedor.producto_id')
                     ->from('producto_proveedor')
-                    ->whereRaw('producto_proveedor.proveedor_id = 1');
+                    ->whereRaw('producto_proveedor.proveedor_id = '.Auth::guard('web_proveedor')->user()->id);
             })
             ->orderBy('nombre', 'asc')
         ->get();
-
-//        dd($productos);
-
-//        select p.* from producto p
-//        where p.id NOT IN(select pp.producto_id from producto_proveedor pp
-//        where pp.proveedor_id='122')
-
-//        DB::table('users')
-//            ->whereExists(function ($query) {
-//                $query->select(DB::raw(1))
-//                    ->from('orders')
-//                    ->whereRaw('orders.user_id = users.id');
-//            })
-//            ->get();
-
-//        $users = DB::table('users')
-//            ->select(DB::raw('count(*) as user_count, status'))
-//            ->where('status', '<>', 1)
-//            ->groupBy('status')
-//            ->get();
 
         return view('proveedores.disponibilidad.disponibilidad',compact('productos_proveedores','productos'));
     }
