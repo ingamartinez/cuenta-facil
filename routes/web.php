@@ -21,12 +21,24 @@ Route::get('logout','LogController@Logout');
 Route::post('proveedor',
     ['uses' => 'ProveedorController@store', 'as' => 'proveedor.store']);
 
+Route::post('tendero',
+    ['uses' => 'TenderoController@store', 'as' => 'tendero.store']);
+
+
 
 Route::group([
     'middleware' => 'proveedor_auth'
 ], function ($router) {
     require base_path('routes/custom/proveedor_routes.php');
 });
+
+Route::group([
+    'middleware' => 'tendero_auth'
+], function ($router) {
+    require base_path('routes/custom/tendero_routes.php');
+});
+
+
 
 Route::get('usuario', function () {
 

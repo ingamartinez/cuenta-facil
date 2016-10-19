@@ -136,9 +136,13 @@ dl {
 /*----------------------------------------------------------------------------------- */
 body.login1 {
   padding: 0;
-  background: url(../images/login-blurry-bg.jpg) no-repeat center center;
+  background: url(../images/login-blur.jpg) no-repeat center center;
   background-size: cover;
-  position: relative; }
+  position: relative;
+
+
+}
+
   body.login1.signup .login-container {
     margin-top: -215px;
     height: 430px; }

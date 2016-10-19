@@ -16,4 +16,13 @@ class Producto extends Model
     protected $fillable = [
         'codigo', 'nombre', 'medida', 'presentacion_id', 'unidad_medida_id', 'iva'
     ];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'tipo', 'password', 'remember_token',
+    ];
 }

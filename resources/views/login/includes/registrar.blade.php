@@ -12,25 +12,67 @@
                     <div class="heading tabs">
                         <ul class="nav nav-tabs pull-right" data-tabs="tabs" id="tabs">
                             <li>
-                                <a data-toggle="tab" href="#tab2"><i class="fa fa-user"></i><span>Proveedor</span></a>
+                                <a data-toggle="tab" href="#tab2"><i class="fa fa-industry"></i><span>Proveedor</span></a>
                             </li>
                             <li class="active">
-                                <a data-toggle="tab" href="#tab1"><i class="fa fa-paper-clip"></i><span>Tendero</span></a>
+                                <a data-toggle="tab" href="#tab1"><i class="fa fa-user"></i><span>Tendero</span></a>
                             </li>
                         </ul>
                     </div>
                     <div class="tab-content padded" id="my-tab-content">
                         <div class="tab-pane active" id="tab1">
                             <h3>
-                                Overview
+                                Registrate como tendero
                             </h3>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque imperdiet auctor purus, non imperdiet sapien dapibus non. Phasellus pretium rutrum elit in cursus. Donec ullamcorper nec massa vel mattis. Curabitur eros metus, dapibus quis est et, dapibus imperdiet dolor.
-                            </p>
+                            {!! Form::open(['route'=>'tendero.store','method'=> 'POST','autocomplete'=>'off' ,'id'=>'form-registrar-proveedor']) !!}
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="nit">NIT</label>
+                                        <input type="text" class="form-control" name="nit" placeholder="NIT">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="nombre">Nombre</label>
+                                        <input type="text" class="form-control" name="nombre" placeholder="Nombre">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="apellido">Apellido</label>
+                                        <input type="text" class="form-control" name="apellido" placeholder="Apellido">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="direccion">Direccion</label>
+                                        <input type="text" class="form-control" name="direccion" placeholder="Direccion">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="email">Email</label>
+                                        <input type="text" class="form-control" name="email" placeholder="Email">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="contraseña">Contraseña</label>
+                                        <input type="password" class="form-control" name="password" placeholder="Contraseña">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 centered">
+                                    <button class="btn btn-primary" type="submit">Registrarme</button>
+                                </div>
+                            </div>
+                            {!! Form::close() !!}
                         </div>
                         <div class="tab-pane" id="tab2">
                             <h3>
-                                Registrate como un proveedor
+                                Registrate como proveedor
                             </h3>
                             {!! Form::open(['route'=>'proveedor.store','method'=> 'POST','autocomplete'=>'off' ,'id'=>'form-registrar-proveedor']) !!}
                             <div class="row">

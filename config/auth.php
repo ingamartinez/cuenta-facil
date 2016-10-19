@@ -50,6 +50,10 @@ return [
             'driver' => 'session',
             'provider' => 'proveedor',
         ],
+        'web_tendero' => [
+            'driver' => 'session',
+            'provider' => 'tendero',
+        ],
     ],
 
     /*
@@ -78,6 +82,10 @@ return [
         'proveedor' => [
             'driver' => 'eloquent',
             'model' => App\Models\Proveedor::class,
+        ],
+        'tendero' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Tendero::class,
         ],
 
         // 'users' => [

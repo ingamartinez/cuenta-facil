@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Tendero;
 
 use App\Http\Requests;
-use Auth;
-use Redirect;
+use Hash;
 
-class LogController extends Controller
+class TenderoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +17,7 @@ class LogController extends Controller
      */
     public function index()
     {
-        return view('login.index');
+        //
     }
 
     /**
@@ -39,32 +39,14 @@ class LogController extends Controller
     public function store(Request $request)
     {
 //        dd($request->all());
-        if(Auth::guard('web_proveedor')->attempt(['email'=>$request['email'],'password'=>$request['password']])) {
-            return redirect()->intended('/');
-        }
+        $tendero=new Tendero($request->all());
 
-        if(Auth::guard('web_tendero')->attempt(['email'=>$request['email'],'password'=>$request['password']])) {
-            return redirect()->intended('/');
-        }
+        $tendero->password=Hash::make($request->password);
+        $tendero->estado='activo';
 
-        return Redirect::back();
-    }
+        $tendero->save();
 
-    public function Logout()
-    {
-//        if (Auth::guard('web_tendero')->check()) {
-//            Auth::guard('web_tendero')->logout();
-//        }
-
-        if (Auth::guard('web_proveedor')->check()) {
-            Auth::guard('web_proveedor')->logout();
-        }
-
-        if (Auth::guard('web_tendero')->check()) {
-            Auth::guard('web_tendero')->logout();
-        }
-
-        return Redirect::to('log');
+        return redirect()->back();
     }
 
     /**
