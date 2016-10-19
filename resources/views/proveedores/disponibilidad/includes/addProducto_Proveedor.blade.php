@@ -14,7 +14,7 @@
                         <div class="form-group">
                             {!! Form::label('producto','Producto') !!}
                             <select class="form-control select-producto" name="producto" id="producto">
-                                <option>Seleccione... </option>
+                                <option selected disabled hidden>Seleccione... </option>
                                 @foreach($productos as $producto)
                                 <option value='{{$producto->id}}'>{{$producto->nombre.' - '. $producto->presentacion.' de '.$producto->medida.' '.$producto->unidad_medida}}</option>
                                 @endforeach
