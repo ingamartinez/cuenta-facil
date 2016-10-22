@@ -17,7 +17,7 @@ class TenderoController extends Controller
      */
     public function index()
     {
-        //
+        return view('tenderos.index.index');
     }
 
     /**

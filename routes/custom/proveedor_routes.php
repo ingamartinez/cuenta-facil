@@ -7,7 +7,7 @@
  */
 
 Route::get('/', function () {
-    return view('proveedores.index.index');
+    return view('proveedores.index');
 });
 
 //Route::get('disponibilidad','DisponibilidadController@index');

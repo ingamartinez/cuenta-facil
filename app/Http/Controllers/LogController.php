@@ -40,11 +40,11 @@ class LogController extends Controller
     {
 //        dd($request->all());
         if(Auth::guard('web_proveedor')->attempt(['email'=>$request['email'],'password'=>$request['password']])) {
-            return redirect()->intended('/');
+            return redirect()->intended('proveedor');
         }
 
         if(Auth::guard('web_tendero')->attempt(['email'=>$request['email'],'password'=>$request['password']])) {
-            return redirect()->intended('/');
+            return redirect()->intended('tendero');
         }
 
         return Redirect::back();

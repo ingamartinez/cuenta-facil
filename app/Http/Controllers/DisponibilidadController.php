@@ -58,7 +58,21 @@ class DisponibilidadController extends Controller
             ->orderBy('nombre', 'asc')
         ->get();
 
-        return view('proveedores.disponibilidad.disponibilidad',compact('productos_proveedores','productos'));
+        $productos2= DB::table('producto')
+            ->join('unidad_medida', 'producto.unidad_medida_id', '=', 'unidad_medida.id')
+            ->join('presentacion', 'producto.presentacion_id', '=', 'presentacion.id')
+            ->select(
+                'producto.id AS id',
+                'producto.codigo AS codigo',
+                'producto.nombre AS nombre',
+                'presentacion.nombre AS presentacion',
+                'producto.medida AS medida',
+                'unidad_medida.nombre AS unidad_medida'
+            )
+            ->orderBy('nombre', 'asc')
+        ->get();
+
+        return view('proveedores.disponibilidad.disponibilidad',compact('productos_proveedores','productos','productos2'));
     }
 
     /**

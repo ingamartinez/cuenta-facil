@@ -35,7 +35,7 @@
             <div class="nav-collapse">
                 <ul class="nav">
                     <li>
-                        <a href="/">
+                        <a href="{{route('proveedor.index')}}">
                             <span aria-hidden="true" class="se7en-home"></span>Dashboard</a>
                     </li>
                     <li>
@@ -46,10 +46,10 @@
                         <a href="disponibilidad">
                             <span aria-hidden="true" class="se7en-flag"></span>Disponibilidad</a>
                     </li>
-                    <li>
-                        <a href="vitrina">
-                            <span aria-hidden="true" class="se7en-feed"></span>Vitrina</a>
-                    </li>
+                    {{--<li>--}}
+                        {{--<a href="vitrina">--}}
+                            {{--<span aria-hidden="true" class="se7en-feed"></span>Vitrina</a>--}}
+                    {{--</li>--}}
 
                 </ul>
             </div>

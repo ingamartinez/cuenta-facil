@@ -11,32 +11,32 @@
 |
 */
 
-//Route::get('/', function () {
-//    return view('welcome');
-//});
+Route::get('/', function () {
+    return redirect()->to('log');
+});
 
+//Rutas de Login
 Route::resource('log','LogController');
 Route::get('logout','LogController@Logout');
 
+//Rutas de Regitro Proveedor y Tendero
 Route::post('proveedor',
     ['uses' => 'ProveedorController@store', 'as' => 'proveedor.store']);
-
 Route::post('tendero',
     ['uses' => 'TenderoController@store', 'as' => 'tendero.store']);
 
+//Rutas de Proveedor
+Route::resource('proveedor','ProveedorController');
+Route::resource('producto','ProductoController');
+Route::resource('disponibilidad','DisponibilidadController');
 
 
-Route::group([
-    'middleware' => 'proveedor_auth'
-], function ($router) {
-    require base_path('routes/custom/proveedor_routes.php');
-});
+//Rutas de Tendero
+Route::resource('tendero','TenderoController');
 
-Route::group([
-    'middleware' => 'tendero_auth'
-], function ($router) {
-    require base_path('routes/custom/tendero_routes.php');
-});
+Route::resource('vitrina','VitrinaController');
+
+
 
 
 

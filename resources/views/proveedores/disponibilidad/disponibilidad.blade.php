@@ -47,10 +47,10 @@
                         <a class="current" href="disponibilidad">
                             <span aria-hidden="true" class="se7en-flag"></span>Disponibilidad</a>
                     </li>
-                    <li>
-                        <a href="vitrina">
-                            <span aria-hidden="true" class="se7en-feed"></span>Vitrina</a>
-                    </li>
+                    {{--<li>--}}
+                        {{--<a href="vitrina">--}}
+                            {{--<span aria-hidden="true" class="se7en-feed"></span>Vitrina</a>--}}
+                    {{--</li>--}}
 
                 </ul>
             </div>
