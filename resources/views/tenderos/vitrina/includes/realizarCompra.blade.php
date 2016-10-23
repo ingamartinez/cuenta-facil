@@ -79,30 +79,12 @@
                         <div class="form-group">
                             <div class="form-group">
                                 {!! Form::label('cantidad','Cantidad') !!}
-                                <input type="text" class="form-control text-cantidad" id="modal-editar-cantidad-producto_proveedor"
+                                <input type="text" class="form-control text-cantidad" id="modal-cantidad-producto_proveedor"
                                        name="cantidad" placeholder="Cantidad">
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-4">
-                        <div class="form-group">
-                            <label for="precio_ofrecido">Precio Venta</label>
-                            <input type="text" class="form-control text-precio_ofrecido" id="modal-editar-precio_ofrecido-producto_proveedor"
-                                   name="precio_ofrecido" placeholder="Precio Ofrecido">
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="form-group">
-                            <label for="estado">Estado</label>
-                            <select class="form-control select-disponibilidad" id="modal-editar-disponibilidad-producto_proveedor"
-                                    name="estado">
-                                <option>Seleccione... </option>
-                                <option value='disponible'>Disponible</option>
-                                <option value='agotado'>Agotado</option>
-                                <option value='descontinuado'>Descontinuado</option>
-                            </select>
-                        </div>
-                    </div>
+
                 </div>
                 <div class="row">
                     <div class="col-sm-12 centered">
@@ -157,13 +139,41 @@
     $('#form-modal-realizar-compra').submit( function (e) {
         e.preventDefault();
         var id = $("#modal-realizar-compra-id-producto_proveedor").val();
-//        alert($(this).serialize());
         $.ajax({
             type: 'POST',
             url: 'carrito',
             data: $(this).serialize(),
-            success: function () {
-//                location.reload();
+            success: function (data) {
+                swal({
+                    title: 'Se añadió al Carrito',
+                    type: 'success',
+                    html:
+                        '<b>Nombre: </b>' +
+                        data.name+' <br>'+
+                        '<b>Cantidad en el Carrito: </b>' +
+                        data.qty +' <br>',
+                    showCloseButton: true,
+                    confirmButtonText:
+                        '<i class="fa fa-thumbs-up"></i> Ok'
+                });
+            },
+            error: function (data) {
+                var cartItem=data.responseJSON;
+                swal({
+                    title: 'Error al agregar cantidad al carrito',
+                    type: 'error',
+                    html:
+                        '<b>La cantidad se Excede</b> <br> <br>'+
+                        'Cantidad del Carrito: '+
+                        '<b>'+cartItem.qty+' </b><br>'+
+                        'Cantidad que se quiere ingresar: '+
+                        '<b>'+$('#modal-cantidad-producto_proveedor').val()+'</b> <br>'+
+                        'Cantidad del carrito mas la Ingresada: ' +
+                        '<b>'+(cartItem.qty + parseInt($('#modal-cantidad-producto_proveedor').val())) +' </b> <br>',
+                    showCloseButton: true,
+                    confirmButtonText:
+                        '<i class="fa fa-thumbs-up"></i> Ok'
+                });
             }
         });
     });

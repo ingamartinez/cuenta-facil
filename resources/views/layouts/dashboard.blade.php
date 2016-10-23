@@ -40,6 +40,7 @@
     <link href="stylesheets/color/gray.css" media="all" rel="alternate stylesheet" title="gray-theme" type="text/css"/>
     <link href="stylesheets/jquery.fileupload-ui.css" media="screen" rel="stylesheet" type="text/css"/>
     <link href="stylesheets/dropzone.css" media="screen" rel="stylesheet" type="text/css"/>
+    <link href="stylesheets/sweetalert2.min.css" media="screen" rel="stylesheet" type="text/css"/>
 
 
 
@@ -114,6 +115,7 @@
 <script src="javascripts/main.js" type="text/javascript"></script>
 <script src="javascripts/respond.js" type="text/javascript"></script>
 <script src="javascripts/jquery.autocomplete.js" type="text/javascript"></script>
+<script src="javascripts/sweetalert2.min.js" type="text/javascript"></script>
 
 
 @stack('script')

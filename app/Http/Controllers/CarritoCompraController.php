@@ -51,15 +51,15 @@ class CarritoCompraController extends Controller
 
             return Response::json($cartItem,200);
         }else{
-            return Response::json('La cantidad se excede',500);
+            return Response::json($cartItem,500);
         }
     }
 
     public function store(Request $request)
     {
 
-        Cart::instance('compra')->destroy();
-        Cart::instance()->destroy();
+//        Cart::instance('compra')->destroy();
+//        Cart::instance()->destroy();
 //        dd(Cart::instance('compra')->content(),Cart::instance()->content());
 //        dd($request->id_producto_proveedor);
 
