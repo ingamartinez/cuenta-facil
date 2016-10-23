@@ -159,8 +159,8 @@
         var id = $("#modal-realizar-compra-id-producto_proveedor").val();
 //        alert($(this).serialize());
         $.ajax({
-            type: 'PUT',
-            url: 'vitrina/' + id,
+            type: 'POST',
+            url: 'carrito',
             data: $(this).serialize(),
             success: function () {
 //                location.reload();

@@ -183,6 +183,11 @@ return [
          */
         Collective\Html\HtmlServiceProvider::class,
 
+        /*
+         * Crinsane - Laravel Shopping Cart
+         */
+        Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class
+
 
     ],
 
@@ -236,6 +241,11 @@ return [
          */
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+
+        /*
+        * Crinsane - Laravel Shopping Cart
+        */
+        'Cart' => Gloudemans\Shoppingcart\Facades\Cart::class,
 
     ],
 

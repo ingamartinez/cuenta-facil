@@ -35,7 +35,6 @@ class VitrinaController extends Controller
                 'presentacion.nombre AS presentacion',
                 'producto.codigo AS codigo',
                 'producto.medida AS medida'
-
             )
             ->where('tendero.id','=',Auth::guard('web_tendero')->user()->id)
         ->get();

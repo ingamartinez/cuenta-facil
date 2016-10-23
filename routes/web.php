@@ -33,8 +33,8 @@ Route::resource('disponibilidad','DisponibilidadController');
 
 //Rutas de Tendero
 Route::resource('tendero','TenderoController');
-
 Route::resource('vitrina','VitrinaController');
+Route::resource('carrito','CarritoCompraController');
 
 
 
