@@ -133,7 +133,7 @@
                                 <td>{{$producto->presentacion.' de '.$producto->medida.' '.$producto->unidad_medida}}</td>
                                 <td>{{$producto->stock_min}}</td>
                                 <td>{{$producto->stock_max}}</td>
-                                <td>{{$producto->precio_compra_ponderado}}</td>
+                                <td>${{$producto->precio_compra_ponderado}}</td>
                                 <td>{{$producto->precio_venta_actual}}</td>
 
 

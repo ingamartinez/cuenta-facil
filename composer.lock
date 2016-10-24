@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "38affba48c0b411efa8f48077bb406c9",
+    "hash": "360dd5df78d988d1164134f90b66dc87",
     "content-hash": "031dfe421e2bf3fde85bfdb3e948f698",
     "packages": [
         {
@@ -588,16 +588,16 @@
         },
         {
             "name": "league/flysystem",
-            "version": "1.0.31",
+            "version": "1.0.32",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "521a233642773505222a5dd53231ccf5b0607d5a"
+                "reference": "1b5c4a0031697f46e779a9d1b309c2e1b24daeab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/521a233642773505222a5dd53231ccf5b0607d5a",
-                "reference": "521a233642773505222a5dd53231ccf5b0607d5a",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/1b5c4a0031697f46e779a9d1b309c2e1b24daeab",
+                "reference": "1b5c4a0031697f46e779a9d1b309c2e1b24daeab",
                 "shasum": ""
             },
             "require": {
@@ -667,7 +667,7 @@
                 "sftp",
                 "storage"
             ],
-            "time": "2016-10-19 13:15:54"
+            "time": "2016-10-19 20:38:46"
         },
         {
             "name": "monolog/monolog",

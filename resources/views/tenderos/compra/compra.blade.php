@@ -82,7 +82,7 @@
                         {{--<i class="fa fa-plus-square"></i>Realizar Compra--}}
                     {{--</button>--}}
                     <h3>
-                        Inventario
+                        Compras en curso
                     </h3>
                 </div>
 
@@ -99,43 +99,38 @@
                             </tr>
                             </thead>
                             <tbody>
-                            {{--@foreach ($shop as $producto)--}}
+                            @foreach (Cart::instance('compra')->content() as $producto)
                                 <tr>
 
                                     <td data-th="Product">
                                         <div class="row">
-                                            <div class="col-sm-2 hidden-xs"><img src="http://placehold.it/100x100" alt="..." class="img-responsive"/></div>
+                                            {{--<div class="col-sm-2 hidden-xs"><img src="http://placehold.it/100x100" alt="..." class="img-responsive"/></div>--}}
                                             <div class="col-sm-10">
                                                 <h4 class="nomargin">{{$producto->name}}</h4>
-                                                <p>
-                                                    <b>Presentacion:</b> {{$producto->attributes->presentacion}}
-                                                    <b>Medida: </b> {{$producto->attributes->medida}}
-                                                    <b>Unidad :</b> {{$producto->attributes->unidad}}
-                                                </p>
+
                                             </div>
                                         </div>
                                     </td>
                                     <td data-th="Price" class="text-center">${{$producto->price}}</td>
 
-                                    <td data-th="Quantity" class="text-center">{{$producto->quantity}}</td>
+                                    <td data-th="Quantity" class="text-center">{{$producto->qty}}</td>
 
-                                    <td data-th="Subtotal" class="text-center">${{$producto->getPriceSum()}}</td>
-                                    <td class="actions" data-th="">
-                                        <button class="btn btn-info btn-sm"><i class="fa fa-refresh"></i></button>
-                                        <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>
+                                    <td data-th="Subtotal" class="text-center">${{$producto->total()}}</td>
+                                    <td data-th="{{$producto->rowId}}" class="actions">
+                                        <button class="btn btn-danger btn-sm eliminar-producto-carrito"><i class="fa fa-trash-o"></i></button>
                                     </td>
 
                                 </tr>
-                            {{--@endforeach--}}
+                            @endforeach
                             </tbody>
                             <tfoot>
                             <tr class="visible-xs">
-                                <td class="text-center"><strong>${{Cart::getTotal()}}</strong></td>
+                                <td class="text-center"><strong>${{Cart::instance('compra')->total()}}</strong></td>
                             </tr>
                             <tr>
-                                <td><a href="{{URL::to('realizar-venta')}}" class="btn btn-warning"><i class="fa fa-angle-left"></i> Seguir Comprando</a></td>
+                                <td colspan="1" class="hidden-xs"></td>
                                 <td colspan="2" class="hidden-xs"></td>
-                                <td class="hidden-xs text-center"><strong>${{Cart::getTotal()}}</strong></td>
+                                <td class="hidden-xs text-center"><strong>${{Cart::instance('compra')->total()}}</strong></td>
                                 <td><a href="#" id="empty" class="btn btn-success btn-block">Finalizar <i class="fa fa-angle-right"></i></a></td>
                             </tr>
                             </tfoot>
@@ -155,7 +150,7 @@
                         {{--<i class="fa fa-plus-square"></i>Realizar Compra--}}
                     {{--</button>--}}
                     <h3>
-                        Productos de Proveedores
+                        Mis Compras
                     </h3>
 
                 </div>
@@ -270,6 +265,59 @@
                 bSortable: false,
                 "aTargets": [-1]
             }]
+        });
+    });
+
+    $('.eliminar-producto-carrito').on('click', function (e) {
+        e.preventDefault();
+        var fila = $(this).parents('td');
+        var id = fila.data('th');
+        $.ajax({
+            type: 'DELETE',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: 'carrito/' + id,
+            success: function (data) {
+                swal({
+                    title: 'Se Elimino del Carrito',
+                    type: 'success',
+                    html:
+                    '<b>Nombre: </b>' +
+                    data.name+' <br>',
+                    showCloseButton: true,
+                    confirmButtonText:
+                            '<i class="fa fa-thumbs-up"></i> Ok'
+                }).then(function() {
+                    location.reload();
+                })
+            }
+        });
+    });
+    $('#empty').on('click', function (e) {
+        e.preventDefault();
+
+        $.ajax({
+            type: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: 'compras',
+            success: function (data) {
+                console.log(data);
+                swal({
+                    title: 'Se realizó la compra',
+                    type: 'success',
+                    html:
+                    '<b>Nombre: </b>' +
+                    data.name+' <br>',
+                    showCloseButton: true,
+                    confirmButtonText:
+                            '<i class="fa fa-thumbs-up"></i> Ok'
+                }).then(function() {
+                    location.reload();
+                })
+            }
         });
     });
 

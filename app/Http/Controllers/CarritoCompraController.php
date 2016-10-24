@@ -159,6 +159,9 @@ class CarritoCompraController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $cartItem= Cart::instance('compra')->get($id);
+        Cart::instance('compra')->remove($id);
+
+        return Response::json($cartItem,200);
     }
 }
