@@ -141,7 +141,7 @@
         var id = $("#modal-realizar-compra-id-producto_proveedor").val();
         $.ajax({
             type: 'POST',
-            url: 'carrito',
+            url: 'carrito-compra',
             data: $(this).serialize(),
             success: function (data) {
                 swal({

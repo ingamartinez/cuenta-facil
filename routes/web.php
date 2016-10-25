@@ -34,9 +34,16 @@ Route::resource('disponibilidad','DisponibilidadController');
 //Rutas de Tendero
 Route::resource('tendero','TenderoController');
 Route::resource('vitrina','VitrinaController');
-Route::resource('carrito','CarritoCompraController');
+Route::resource('carrito-compra','CarritoCompraController');
+Route::resource('carrito-venta','CarritoVentaController');
 Route::resource('compras','CompraController');
 Route::resource('detalle-compra','DetalleCompraController');
+Route::resource('ventas','VentaController');
+Route::resource('detalle-venta','DetalleVentaController');
+Route::resource('inventario','InventarioController');
+
+Route::get('inventario2/{id}',
+    ['uses' => 'InventarioController@show2', 'as' => 'inventario2.show']);
 
 
 Route::get('usuario', function () {

@@ -246,6 +246,33 @@
 
     });
 
+    $('.eliminar-producto-carrito').on('click', function (e) {
+        e.preventDefault();
+        var fila = $(this).parents('td');
+        var id = fila.data('th');
+        $.ajax({
+            type: 'DELETE',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: 'carrito-compra/' + id,
+            success: function (data) {
+                swal({
+                    title: 'Se Elimino del Carrito',
+                    type: 'success',
+                    html:
+                    '<b>Nombre: </b>' +
+                    data.name+' <br>',
+                    showCloseButton: true,
+                    confirmButtonText:
+                            '<i class="fa fa-thumbs-up"></i> Ok'
+                }).then(function() {
+                    location.reload();
+                })
+            }
+        });
+    });
+
     $('#empty').on('click', function (e) {
         e.preventDefault();
 

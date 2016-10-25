@@ -1,4 +1,4 @@
-<div class="modal fade" id="modal-editar-producto_proveedor">
+<div class="modal fade" id="modal-editar-producto">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -10,14 +10,14 @@
             <div class="modal-body">
                 {!! Form::open(['route'=>['producto.destroy',':PRODUCTO_ID'],'method'=> 'POST','autocomplete'=>'off',
                 'id'=>'form-modal-editar-producto_proveedor','class'=>'form']) !!}
-                    <input id="modal-editar-id-producto_proveedor" name="id_producto_proveedor" type="hidden" value="">
+                    <input id="modal-editar-id-producto" name="id_producto" type="hidden" value="">
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="form-group">
                             {!! Form::label('producto','Producto') !!}
-                            <select disabled class="form-control select-producto" name="producto" id="modal-editar-producto-producto_proveedor" >
+                            <select disabled class="form-control select-producto" name="producto" id="modal-editar-producto" >
                                 <option>Seleccione... </option>
-                                @foreach($productos2 as $producto)
+                                @foreach($inventario as $producto)
                                     <option value='{{$producto->id}}'>{{$producto->nombre.' - '. $producto->presentacion.' de '.$producto->medida.' '.$producto->unidad_medida}}</option>
                                 @endforeach
                             </select>
@@ -29,23 +29,32 @@
                     <div class="col-sm-4">
                         <div class="form-group">
                             <div class="form-group">
-                                {!! Form::label('cantidad','Cantidad') !!}
-                                <input type="text" class="form-control text-cantidad" id="modal-editar-cantidad-producto_proveedor"
-                                       name="cantidad" placeholder="Cantidad">
+                                <label for="stock_minimo">Stock Minimo</label>
+                                <input type="text" class="form-control" id="modal-editar-stock_minimo"
+                                       name="stock_minimo" placeholder="Stock Minimo">
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <label for="precio_ofrecido">Precio Ofrecido</label>
-                            <input type="text" class="form-control text-precio_ofrecido" id="modal-editar-precio_ofrecido-producto_proveedor"
-                                   name="precio_ofrecido" placeholder="Precio Ofrecido">
+                            <div class="form-group">
+                                <label for="stock_maximo">Stock Maximo</label>
+                                <input type="text" class="form-control" id="modal-editar-stock_maximo"
+                                       name="stock_maximo" placeholder="Stock Maximo">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="precio_venta">Precio Venta</label>
+                            <input type="text" class="form-control text-precio_ofrecido" id="modal-editar-precio_venta"
+                                   name="precio_venta" placeholder="Precio Venta">
                         </div>
                     </div>
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label for="estado">Estado</label>
-                            <select class="form-control select-disponibilidad" id="modal-editar-disponibilidad-producto_proveedor"
+                            <select class="form-control select-disponibilidad" id="modal-editar-disponibilidad"
                                     name="estado">
                                 <option>Seleccione... </option>
                                 <option value='disponible'>Disponible</option>
@@ -80,37 +89,50 @@
 
 <script>
 
-    $('.editar-producto_proveedor').on('click', function (e) {
+    $('.editar-producto').on('click', function (e) {
         e.preventDefault();
         var fila = $(this).parents('tr');
         var id = fila.data('id');
         $.ajax({
             type: 'GET',
-            url: 'disponibilidad/' + id,
+            url: 'inventario/' + id,
             success: function (data) {
                 console.log(data);
-                $('select[id="modal-editar-producto-producto_proveedor"]').val(data.id);
-                $('#modal-editar-cantidad-producto_proveedor').val(data.cantidad);
+                $('select[id="modal-editar-producto"]').val(data.id);
+                $('#modal-editar-stock_minimo').val(data.stock_min);
+                $('#modal-editar-stock_maximo').val(data.stock_max);
+                $('#modal-editar-precio_venta').val(data.precio_venta_actual);
                 $('#modal-editar-precio_ofrecido-producto_proveedor').val(data.precio_ofrecido);
-                $('select[id="modal-editar-disponibilidad-producto_proveedor"]').val(data.estado);
+                $('select[id="modal-editar-disponibilidad"]').val(data.estado);
 
-                $("#modal-editar-id-producto_proveedor").val(data.id);
+                $("#modal-editar-id-producto").val(data.id);
 
-                $("#modal-editar-producto_proveedor").modal('toggle');
+                $("#modal-editar-producto").modal('toggle');
             }
         });
     });
 
     $('#form-modal-editar-producto_proveedor').submit( function (e) {
         e.preventDefault();
-        var id = $("#modal-editar-id-producto_proveedor").val();
+        var id = $("#modal-editar-id-producto").val();
 
         $.ajax({
             type: 'PUT',
-            url: 'disponibilidad/' + id,
+            url: 'inventario/' + id,
             data: $(this).serialize(),
             success: function () {
-                location.reload();
+                swal({
+                    title: 'Producto Editado',
+                    type: 'success',
+                    html:
+                    '<b>Nombre: </b>' +
+                    $('select[id="modal-editar-producto"] option:selected').html()+' <br>',
+                    showCloseButton: true,
+                    confirmButtonText:
+                            '<i class="fa fa-thumbs-up"></i> Ok'
+                }).then(function() {
+                    location.reload();
+                })
             }
         });
     });

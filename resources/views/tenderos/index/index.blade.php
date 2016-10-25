@@ -47,8 +47,12 @@
                             <span aria-hidden="true" class="se7en-forms"></span>Mis Clientes</a>
                     </li>
                     <li>
-                        <a href="disponibilidad">
+                        <a href="compras">
                             <span aria-hidden="true" class="se7en-flag"></span>Compras</a>
+                    </li>
+                    <li>
+                        <a href="ventas">
+                            <span aria-hidden="true" class="se7en-pages"></span>Ventas</a>
                     </li>
                     {{--<li>--}}
                         {{--<a href="vitrina">--}}
