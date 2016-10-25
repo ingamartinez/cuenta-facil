@@ -19,7 +19,24 @@ class CarritoCompraController extends Controller
      */
     public function index()
     {
-        //
+//        Cart::instance('compra')->destroy();
+//        dd(Cart::instance('compra')->content());
+
+        $proveedores=[];
+        foreach (Cart::instance('compra')->content() as $item){
+            foreach ($item->options as $opciones){
+                if (in_array($opciones,$proveedores )) {
+                    echo "Existe";
+                }else{
+                    echo "No existe";
+                    $proveedores[]=$opciones;
+                }
+//                $proveedores[]=$opciones;
+            }
+        }
+
+        dd(Cart::instance('compra')->content(),$proveedores);
+
     }
 
     /**
@@ -93,11 +110,14 @@ class CarritoCompraController extends Controller
                 'producto.medida AS medida',
                 'unidad_medida.nombre AS unidad_medida',
                 'producto_proveedor.estado AS estado',
-                'proveedor.nombre AS nombre_proveedor')
-            ->where('producto.id','=',$request->id_producto_proveedor)
-            ->get();
+                'proveedor.nombre AS nombre_proveedor',
+                'proveedor.id AS id_proveedor')
+            ->where('producto_proveedor.id','=',$request->id_producto_proveedor)
+        ->get();
 
+//        dd($productos_proveedores);
         foreach ($productos_proveedores as $producto_proveedor){
+
             if ($request->cantidad <= $producto_proveedor->cantidad ){
 
                 $cart=Cart::instance('compra')->add(array(
@@ -105,11 +125,13 @@ class CarritoCompraController extends Controller
                         'name' => $producto_proveedor->nombre.' - '. $producto_proveedor->presentacion.' de '.$producto_proveedor->medida.' '.$producto_proveedor->unidad_medida,
                         'qty' => $request->cantidad,
                         'price' => $producto_proveedor->precio,
-                        'options'=>array(
-                            'proveedor' => $producto_proveedor->nombre_proveedor
-                        )
+                        'options'=>[
+                            'proveedor' => $producto_proveedor->id_proveedor
+                        ]
                     )
                 );
+
+
                 return Response::json($cart,200);
             }else{
                 return Response::json('La cantidad se excede',500);

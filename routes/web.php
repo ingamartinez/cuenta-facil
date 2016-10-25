@@ -36,9 +36,7 @@ Route::resource('tendero','TenderoController');
 Route::resource('vitrina','VitrinaController');
 Route::resource('carrito','CarritoCompraController');
 Route::resource('compras','CompraController');
-
-
-
+Route::resource('detalle-compra','DetalleCompraController');
 
 
 Route::get('usuario', function () {

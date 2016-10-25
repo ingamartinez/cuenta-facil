@@ -1,4 +1,4 @@
-{{--@include('tenderos.vitrina.includes.realizarCompra')--}}
+@include('tenderos.compra.includes.mostrarDetalleCompra')
 {{--@include('tenderos.vitrina.includes.realizarVenta')--}}
 
 
@@ -160,58 +160,35 @@
                         <thead>
 
                         <th>
-                            Cantidad
+                            #Id Compra
                         </th>
                         <th>
-                            Codigo
+                            Proveedor
                         </th>
                         <th>
-                            Nombre
-                        </th>
-                        <th>
-                            Presentación completa
-                        </th>
-                        <th>
-                            IVA
-                        </th>
-                        <th>
-                            Precio Ofrecido
-                        </th>
-                        <th>
-                            Nombre Proveedor
-                        </th>
-                        <th>
-                            Nit
+                            Fecha de Compra
                         </th>
 
                         <th></th>
                         </thead>
                         <tbody>
-                        {{--@foreach($productos_proveedores as $producto)--}}
-                            {{--<tr--}}
-                                    {{--data-id="{{$producto->id}}">--}}
+                        @foreach($compras as $compra)
+                            <tr
+                                    data-id="{{$compra->id}}">
 
-                                {{--<td>{{$producto->cantidad_disponible}}</td>--}}
-                                {{--<td>{{$producto->codigo}}</td>--}}
-                                {{--<td>{{$producto->nombre}}</td>--}}
-                                {{--<td>{{$producto->presentacion.' de '.$producto->medida.' '.$producto->unidad_medida}}</td>--}}
-                                {{--<td>{{$producto->iva}}</td>--}}
-                                {{--<td>${{$producto->precio_ofrecido}}</td>--}}
-                                {{--<td>{{$producto->nombre_proveedor}}</td>--}}
-                                {{--<td>{{$producto->nit}}</td>--}}
+                                <td>{{$compra->id}}</td>
+                                <td>{{$compra->proveedor_id}}</td>
+                                <td>{{$compra->created_at}}</td>
 
-
-
-
-                                {{--<td class="actions">--}}
-                                    {{--<div class="action-buttons">--}}
-                                        {{--<a class="table-actions comprar-producto" href="#">--}}
-                                            {{--<i class="fa fa-arrow-left"></i>--}}
-                                        {{--</a>--}}
-                                    {{--</div>--}}
-                                {{--</td>--}}
-                            {{--</tr>--}}
-                        {{--@endforeach--}}
+                                <td class="actions">
+                                    <div class="action-buttons">
+                                        <a class="table-actions visualizar-compra" href="#">
+                                            <i class="fa fa-arrow-left"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
 
                         </tbody>
                     </table>
@@ -266,34 +243,9 @@
                 "aTargets": [-1]
             }]
         });
+
     });
 
-    $('.eliminar-producto-carrito').on('click', function (e) {
-        e.preventDefault();
-        var fila = $(this).parents('td');
-        var id = fila.data('th');
-        $.ajax({
-            type: 'DELETE',
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            url: 'carrito/' + id,
-            success: function (data) {
-                swal({
-                    title: 'Se Elimino del Carrito',
-                    type: 'success',
-                    html:
-                    '<b>Nombre: </b>' +
-                    data.name+' <br>',
-                    showCloseButton: true,
-                    confirmButtonText:
-                            '<i class="fa fa-thumbs-up"></i> Ok'
-                }).then(function() {
-                    location.reload();
-                })
-            }
-        });
-    });
     $('#empty').on('click', function (e) {
         e.preventDefault();
 
