@@ -22,7 +22,7 @@ class VentaController extends Controller
      */
     public function index()
     {
-        $ventas = Venta::all();
+        $ventas = Venta::where('tendero_id', Auth::guard('web_tendero')->user()->id)->get();
         return view('tenderos.venta.venta',compact('ventas'));
     }
 

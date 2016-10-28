@@ -24,7 +24,7 @@ class CompraController extends Controller
      */
     public function index()
     {
-        $compras = Compra::all();
+        $compras = Compra::where('tendero_id', Auth::guard('web_tendero')->user()->id)->get();
         return view('tenderos.compra.compra',compact('compras'));
     }
 
@@ -81,7 +81,8 @@ class CompraController extends Controller
                         $producto_proveedor->save();
 
 
-                        $articuloInventario = Inventario::where('producto_id','=',$producto_proveedor->producto_id)->first();
+                        $articuloInventario = Inventario::where('producto_id','=',$producto_proveedor->producto_id)
+                                                        ->where('tendero_id','=',Auth::guard('web_tendero')->user()->id)->first();
 
                         if(empty($articuloInventario)){
                             $nuevoArticuloInventario = new Inventario();
@@ -90,6 +91,7 @@ class CompraController extends Controller
                             $nuevoArticuloInventario->producto_id = $producto_proveedor->producto_id;
                             $nuevoArticuloInventario->tendero_id=Auth::guard('web_tendero')->user()->id;
                             $nuevoArticuloInventario->estado='disponible';
+                            $nuevoArticuloInventario->stock_min=1;
                             $nuevoArticuloInventario->save();
                         }else{
 
