@@ -116,6 +116,9 @@
                             Precio Venta Actual
                         </th>
                         <th>
+                            Ganancia en Porcentaje
+                        </th>
+                        <th>
                             Estado
                         </th>
 
@@ -134,6 +137,14 @@
                                 <td>{{$producto->stock_max}}</td>
                                 <td>${{$producto->precio_compra_ponderado}}</td>
                                 <td>${{$producto->precio_venta_actual}}</td>
+
+                                @if(isset($producto->ganancia_percent))
+                                    <td>{{$producto->ganancia_percent}}%</td>
+                                @else
+                                    <td>
+                                        <b class="alert-danger">Defina el precio de Venta</b>
+                                    </td>
+                                @endif
 
 
                                 @if ($producto->estado === 'disponible')

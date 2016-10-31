@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Inventario;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -39,6 +40,21 @@ class VitrinaController extends Controller
             ->where('tendero.id','=',Auth::guard('web_tendero')->user()->id)
         ->get();
 
+        foreach ($inventario as $inv){
+            if($inv->precio_venta_actual!=0){
+                $inv->ganancia_percent = "";
+                $precioVenta = $inv->precio_venta_actual;
+                $precioCompra = $inv->precio_compra_ponderado;
+
+                $diferencia = $precioVenta-$precioCompra;
+                $porcentaje = ($diferencia/$precioCompra)*100;
+
+                $porcentaje = round($porcentaje,2);
+
+                $inv->ganancia_percent = $porcentaje;
+            }
+        }
+
         $productos_proveedores= DB::table('producto_proveedor')
             ->join('producto', 'producto_proveedor.producto_id', '=', 'producto.id')
             ->join('proveedor', 'producto_proveedor.proveedor_id', '=', 'proveedor.id')
@@ -60,6 +76,7 @@ class VitrinaController extends Controller
             )
             ->where('producto_proveedor.estado','=','disponible')
         ->get();
+
 
         return view('tenderos.vitrina.vitrina',compact('inventario','productos_proveedores'));
     }
