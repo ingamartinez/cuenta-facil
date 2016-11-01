@@ -81,19 +81,19 @@
                         <thead>
 
                         <th>
+                            Codigo
+                        </th>
+                        <th>
                             Cantidad
                         </th>
                         <th>
                             Producto
                         </th>
                         <th>
-                            Codigo
+                            Presentación completa
                         </th>
                         <th>
                             Precio Ofrecido
-                        </th>
-                        <th>
-                            Presentación completa
                         </th>
                         <th>
                             Estado
@@ -105,12 +105,13 @@
                             <tr
                                 {{--data-id_global="{{$productos->id_producto_global}}"--}}
                                 data-id="{{$productos->id_producto_local}}">
-
+                                <td>{{$productos->id_producto_global}}</td>
                                 <td>{{$productos->cantidad}}</td>
                                 <td>{{$productos->nombre}}</td>
-                                <td>{{$productos->codigo}}</td>
-                                <td>${{$productos->precio}}</td>
+
+
                                 <td>{{$productos->presentacion.' de '.$productos->medida.' '.$productos->unidad_medida}}</td>
+                                <td>${{$productos->precio}}</td>
 
 
                                 @if ($productos->estado === 'disponible')

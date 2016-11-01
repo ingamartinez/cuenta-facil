@@ -177,7 +177,7 @@
                                     data-id="{{$compra->id}}">
 
                                 <td>{{$compra->id}}</td>
-                                <td>{{$compra->proveedor_id}}</td>
+                                <td>{{$compra->nombre}}</td>
                                 <td>{{$compra->created_at}}</td>
 
                                 <td class="actions">

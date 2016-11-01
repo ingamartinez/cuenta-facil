@@ -14,7 +14,7 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="codigo">Codigo</label>
-                            <input type="text" class="form-control" name="codigo" id="modal-editar-codigo-producto" placeholder="Codigo">
+                            <input type="text" class="form-control" name="codigo" id="modal-editar-codigo-producto" placeholder="Codigo" disabled>
                         </div>
                     </div>
                     <div class="col-sm-6">
@@ -102,7 +102,7 @@
             url: 'producto/' + id,
             success: function (data) {
                 console.log(data);
-                $('#modal-editar-codigo-producto').val(data.codigo);
+                $('#modal-editar-codigo-producto').val(data.id);
                 $('#modal-editar-nombre-producto').val(data.nombre);
                 $('#modal-editar-IVA-producto').val(data.iva);
                 $('select[id="modal-editar-presentacion-producto"]').val(data.presentacion_id);

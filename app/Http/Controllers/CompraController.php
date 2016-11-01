@@ -24,7 +24,19 @@ class CompraController extends Controller
      */
     public function index()
     {
-        $compras = Compra::where('tendero_id', Auth::guard('web_tendero')->user()->id)->get();
+
+        $compras= DB::table('compra')
+            ->join('proveedor', 'compra.proveedor_id', '=', 'proveedor.id')
+            ->select(
+                'compra.id',
+                'proveedor.nombre',
+                'compra.created_at'
+
+            )
+            ->where('compra.tendero_id','=',Auth::guard('web_tendero')->user()->id)
+        ->get();
+//        dd($compras);
+
         return view('tenderos.compra.compra',compact('compras'));
     }
 

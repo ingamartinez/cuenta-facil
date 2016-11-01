@@ -74,6 +74,7 @@ class ProductoController extends Controller
 //        dd($request->all());
         $producto=new Producto($request->all());
         $producto->presentacion_id=$request->presentacion;
+        $producto->codigo=000;
         $producto->unidad_medida_id=$request->unidad_medida;
 
         $producto->save();
@@ -116,7 +117,7 @@ class ProductoController extends Controller
     {
 //        dd($request->all());
         $producto = Producto::findOrFail($id);
-        $producto->codigo= $request->codigo;
+        $producto->codigo= 000;
         $producto->nombre= $request->nombre;
         $producto->medida= $request->medida;
         $producto->iva= $request->iva;

@@ -32,6 +32,14 @@
 
                     </tbody>
                 </table>
+
+                <div class="col-lg-6">
+                    <br>
+
+                    <label style="font-weight: 700;font-size: 1.5em" for="total-compra" id="total_compra">
+
+                    </label>
+                </div>
             </div>
             <div class="modal-footer">
 
@@ -75,6 +83,7 @@
             e.preventDefault();
             var fila = $(this).parents('tr');
             var id = fila.data('id');
+            var total = 0;
 
 //        alert(id);
 
@@ -91,7 +100,9 @@
                             data[item].nombre_producto,
                             data[item].nombre_proveedor
                         ] ).draw( false );
+                        total+=parseFloat(data[item].cantidad_detalle_compra)*parseFloat(data[item].precio);
                     }
+                    $('#total_compra').text('Total de Venta: $'+total);
 
                     $("#mostrar-detalle-compra").modal('toggle');
                 }

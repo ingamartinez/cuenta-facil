@@ -23,6 +23,15 @@
                             </select>
                         </div>
                     </div>
+                    <div class="col-sm-5">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label for="precio_compra">Compra Ponderada</label>
+                                <input type="text" class="form-control" id="modal-editar-precio_compra"
+                                       disabled>
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
                 <div class="row">
@@ -49,6 +58,13 @@
                             <label for="precio_venta">Precio Venta</label>
                             <input type="text" class="form-control text-precio_ofrecido" id="modal-editar-precio_venta"
                                    name="precio_venta" placeholder="Precio Venta">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="ganancia_percent">Ganancia Porcentaje</label>
+                            <input type="text" class="form-control text-precio_ofrecido" id="modal-editar-ganancia_percent"
+                                   name="ganancia_percent" placeholder="Ganancia en Porcentaje">
                         </div>
                     </div>
                     <div class="col-sm-4">
@@ -103,6 +119,7 @@
                 $('#modal-editar-stock_maximo').val(data.stock_max);
                 $('#modal-editar-precio_venta').val(data.precio_venta_actual);
                 $('#modal-editar-precio_ofrecido-producto_proveedor').val(data.precio_ofrecido);
+                $('#modal-editar-precio_compra').val(data.precio_compra_ponderado);
                 $('select[id="modal-editar-disponibilidad"]').val(data.estado);
 
                 $("#modal-editar-id-producto").val(data.id);
@@ -135,6 +152,27 @@
                 })
             }
         });
+    });
+
+    $('#modal-editar-precio_venta').keyup(function(){
+        var precioCompra = parseFloat($('#modal-editar-precio_compra').val());
+        var precioVenta =  parseFloat($('#modal-editar-precio_venta').val());
+
+        console.log(precioCompra,precioVenta)
+
+        var diferencia = precioVenta-precioCompra;
+        var porcentaje = (diferencia/precioCompra)*100;
+        porcentaje = porcentaje.toFixed(2);
+        $('#modal-editar-ganancia_percent').val(porcentaje+"%");
+
+    });
+
+    $('#modal-editar-ganancia_percent').keyup(function(){
+        var precioCompra = parseFloat($('#modal-editar-precio_compra').val());
+        var ganancia=  parseFloat($('#modal-editar-ganancia_percent').val().replace('%',''));
+
+        var precioAVender = Math.round(((ganancia*precioCompra)/100)+precioCompra);
+        $('#modal-editar-precio_venta').val(precioAVender);
     });
 
 </script>

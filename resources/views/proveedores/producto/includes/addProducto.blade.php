@@ -10,12 +10,12 @@
             <div class="modal-body">
                 {!! Form::open(['route'=>'producto.store','method'=> 'POST','autocomplete'=>'off' ,'id'=>'form-agregar-producto']) !!}
                 <div class="row">
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label for="codigo">Codigo</label>
-                            <input type="text" class="form-control" name="codigo" placeholder="Codigo">
-                        </div>
-                    </div>
+                    {{--<div class="col-sm-6">--}}
+                        {{--<div class="form-group">--}}
+                            {{--<label for="codigo">Codigo</label>--}}
+                            {{--<input type="text" class="form-control" name="codigo" placeholder="Codigo">--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="nombre">Nombre</label>

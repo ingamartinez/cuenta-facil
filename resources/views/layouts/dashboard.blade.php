@@ -116,6 +116,7 @@
 <script src="javascripts/respond.js" type="text/javascript"></script>
 <script src="javascripts/jquery.autocomplete.js" type="text/javascript"></script>
 <script src="javascripts/sweetalert2.min.js" type="text/javascript"></script>
+<script src="javascripts/sum().js" type="text/javascript"></script>
 
 
 @stack('script')

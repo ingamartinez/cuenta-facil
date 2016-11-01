@@ -93,7 +93,7 @@
                         <tbody>
                         @foreach($productos as $producto)
                             <tr data-id="{{$producto->id}}">
-                                <td>{{$producto->codigo}}</td>
+                                <td>{{$producto->id}}</td>
                                 <td>{{$producto->nombre}}</td>
                                 <td>{{$producto->presentacion.' de '.$producto->medida.' '.$producto->unidad_medida}}</td>
 

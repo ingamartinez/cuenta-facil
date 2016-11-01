@@ -8,31 +8,47 @@
                 </h4>
             </div>
             <div class="modal-body">
-                <table class="table table-bordered table-striped" id="example3">
-                    <thead>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <table class="table table-bordered table-striped" id="example3">
+                            <thead>
 
-                    <th>
-                        Cantidad
-                    </th>
-                    <th>
-                        Precio
-                    </th>
-                    <th>
-                        Producto
-                    </th>
-                    <th>
-                        Cliente
-                    </th>
-
-
-                    </thead>
-                    <tbody>
+                            <th>
+                                Cantidad
+                            </th>
+                            <th>
+                                Precio
+                            </th>
+                            <th>
+                                Producto
+                            </th>
+                            <th>
+                                Cliente
+                            </th>
 
 
+                            </thead>
+                            <tbody>
 
-                    </tbody>
-                </table>
+
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <br>
+
+                        <label style="font-weight: 700;font-size: 1.5em" for="total-venta" id="total_venta">
+
+                        </label>
+                    </div>
+                </div>
+
+
+
             </div>
+
             <div class="modal-footer">
 
                 <button class="btn btn-default-outline" data-dismiss="modal" type="button">Cerrar</button>
@@ -67,7 +83,8 @@
             aoColumnDefs: [{
                 bSortable: false,
                 "aTargets": [-1]
-            }]
+            }],
+
         });
 
         $('.visualizar-venta').on('click', function (e) {
@@ -75,6 +92,8 @@
             e.preventDefault();
             var fila = $(this).parents('tr');
             var id = fila.data('id');
+
+            var total=0;
 
 //        alert(id);
 
@@ -84,15 +103,18 @@
                 url: 'detalle-venta/' + id,
                 success: function (data) {
                     for (var item in data){
-
                         t.row.add( [
                             data[item].cantidad_detalle_venta,
                             data[item].precio,
                             data[item].nombre_producto,
+
+
 //                            data[item].nombre_cliente
                             "Por Defecto"
                         ] ).draw( false );
+                        total+=parseFloat(data[item].cantidad_detalle_venta)*parseFloat(data[item].precio);
                     }
+                    $('#total_venta').text('Total de Venta: $'+total);
 
                     $("#mostrar-detalle-venta").modal('toggle');
                 }

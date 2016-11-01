@@ -6,7 +6,7 @@
 @extends('layouts.dashboard')
 
 @section('title')
-    Cuenta Fácil | Disponibilidad
+    Cuenta Fácil | Vitrina
 @endsection
 
 @section('nagivation')
@@ -116,6 +116,9 @@
                             Precio Venta Actual
                         </th>
                         <th>
+                            Ganancia en Pesos
+                        </th>
+                        <th>
                             Ganancia en Porcentaje
                         </th>
                         <th>
@@ -130,13 +133,21 @@
                                 data-id="{{$producto->id}}">
 
                                 <td>{{$producto->cantidad}}</td>
-                                <td>{{$producto->codigo}}</td>
+                                <td>{{$producto->id_global}}</td>
                                 <td>{{$producto->nombre}}</td>
                                 <td>{{$producto->presentacion.' de '.$producto->medida.' '.$producto->unidad_medida}}</td>
                                 <td>{{$producto->stock_min}}</td>
                                 <td>{{$producto->stock_max}}</td>
                                 <td>${{$producto->precio_compra_ponderado}}</td>
                                 <td>${{$producto->precio_venta_actual}}</td>
+
+                                @if(isset($producto->ganancia_pesos))
+                                    <td>${{$producto->ganancia_pesos}}</td>
+                                @else
+                                    <td>
+                                        <b class="alert-danger">Defina el precio de Venta</b>
+                                    </td>
+                                @endif
 
                                 @if(isset($producto->ganancia_percent))
                                     <td>{{$producto->ganancia_percent}}%</td>
@@ -177,9 +188,37 @@
                         </tbody>
                     </table>
                 </div>
+
+                <div class="col-lg-6">
+                    <label>Total Precio Compra:</label><br>
+
+                    <label style="font-weight: 700;font-size: 1.5em" for="total-precio_compra">
+                        @if(isset($inventario->total_ponderado))
+                            ${{$inventario->total_ponderado}}
+                        @else
+                            $0
+                        @endif
+
+                    </label>
+                </div>
+
+
+                <div class="col-lg-6">
+                    <label >Total Ganancia:</label><br>
+                    <label style="font-weight: 700;font-size: 1.5em" for="total-ganancia">
+                        @if(isset($inventario->total_ganancia))
+                            ${{$inventario->total_ganancia}}
+                        @else
+                            $0
+                        @endif
+                    </label>
+                </div>
+
             </div>
         </div>
     </div>
+
+
 
     <div class="row">
         <div class="col-lg-12">
@@ -231,7 +270,7 @@
                                     data-id="{{$producto->id}}">
 
                                 <td>{{$producto->cantidad_disponible}}</td>
-                                <td>{{$producto->codigo}}</td>
+                                <td>{{$producto->id_global}}</td>
                                 <td>{{$producto->nombre}}</td>
                                 <td>{{$producto->presentacion.' de '.$producto->medida.' '.$producto->unidad_medida}}</td>
                                 <td>{{$producto->iva}}</td>
@@ -283,9 +322,11 @@
             aoColumnDefs: [{
                 bSortable: false,
                 "aTargets": [-1]
-            }]
+            }],
+
         });
         $('#example2').dataTable({
+
             "language": {
                 url: "//cdn.datatables.net/plug-ins/1.10.10/i18n/Spanish.json"
             },

@@ -35,13 +35,17 @@ class VitrinaController extends Controller
                 'unidad_medida.nombre AS unidad_medida',
                 'presentacion.nombre AS presentacion',
                 'producto.codigo AS codigo',
-                'producto.medida AS medida'
+                'producto.medida AS medida',
+                'producto.id AS id_global'
             )
             ->where('tendero.id','=',Auth::guard('web_tendero')->user()->id)
         ->get();
 
+        $inventario->total_ponderado=0;
+        $inventario->total_ganancia=0;
         foreach ($inventario as $inv){
             if($inv->precio_venta_actual!=0){
+                //Concatenar la ganancia en porcntaje
                 $inv->ganancia_percent = "";
                 $precioVenta = $inv->precio_venta_actual;
                 $precioCompra = $inv->precio_compra_ponderado;
@@ -52,7 +56,16 @@ class VitrinaController extends Controller
                 $porcentaje = round($porcentaje,2);
 
                 $inv->ganancia_percent = $porcentaje;
+                //Concatener la ganancia en pesos
+                $inv->ganancia_pesos = "";
+                $inv->ganancia_pesos=(double)$inv->precio_venta_actual - (double)$inv->precio_compra_ponderado;
+
+                //Total Ganancia en Pesos
+                $inventario->total_ganancia+=(double)$inv->ganancia_pesos;
+
             }
+            //Total Compra Ponderado
+            $inventario->total_ponderado+=(double)$inv->precio_compra_ponderado;
         }
 
         $productos_proveedores= DB::table('producto_proveedor')
@@ -71,7 +84,8 @@ class VitrinaController extends Controller
                 'producto_proveedor.cantidad AS cantidad_disponible',
                 'producto_proveedor.precio_ofrecido AS precio_ofrecido',
                 'proveedor.nit AS nit',
-                'proveedor.nombre AS nombre_proveedor'
+                'proveedor.nombre AS nombre_proveedor',
+                'producto.id AS id_global'
 
             )
             ->where('producto_proveedor.estado','=','disponible')

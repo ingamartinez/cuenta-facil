@@ -174,7 +174,7 @@
                                     data-id="{{$venta->id}}">
 
                                 <td>{{$venta->id}}</td>
-                                <td>{{$venta->cliente_id}}</td>
+                                <td>{{$venta->nombre}}</td>
                                 <td>{{$venta->created_at}}</td>
 
                                 <td class="actions">
