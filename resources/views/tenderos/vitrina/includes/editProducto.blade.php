@@ -119,7 +119,7 @@
                 $('#modal-editar-stock_maximo').val(data.stock_max);
                 $('#modal-editar-precio_venta').val(data.precio_venta_actual);
                 $('#modal-editar-precio_ofrecido-producto_proveedor').val(data.precio_ofrecido);
-                $('#modal-editar-precio_compra').val(data.precio_compra_ponderado);
+                $('#modal-editar-precio_compra').val('$'+data.precio_compra_ponderado);
                 $('select[id="modal-editar-disponibilidad"]').val(data.estado);
 
                 $("#modal-editar-id-producto").val(data.id);
@@ -155,8 +155,8 @@
     });
 
     $('#modal-editar-precio_venta').keyup(function(){
-        var precioCompra = parseFloat($('#modal-editar-precio_compra').val());
-        var precioVenta =  parseFloat($('#modal-editar-precio_venta').val());
+        var precioCompra = parseFloat($('#modal-editar-precio_compra').val().replace('$',''));
+        var precioVenta =  parseFloat($('#modal-editar-precio_venta').val()).replace('$','');
 
         console.log(precioCompra,precioVenta)
 
@@ -168,7 +168,7 @@
     });
 
     $('#modal-editar-ganancia_percent').keyup(function(){
-        var precioCompra = parseFloat($('#modal-editar-precio_compra').val());
+        var precioCompra = parseFloat($('#modal-editar-precio_compra').val().replace('$',''));
         var ganancia=  parseFloat($('#modal-editar-ganancia_percent').val().replace('%',''));
 
         var precioAVender = Math.round(((ganancia*precioCompra)/100)+precioCompra);
