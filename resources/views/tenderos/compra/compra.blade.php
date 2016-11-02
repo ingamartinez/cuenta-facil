@@ -166,6 +166,9 @@
                             Proveedor
                         </th>
                         <th>
+                            Total de la Compra
+                        </th>
+                        <th>
                             Fecha de Compra
                         </th>
 
@@ -178,6 +181,7 @@
 
                                 <td>{{$compra->id}}</td>
                                 <td>{{$compra->nombre}}</td>
+                                <td>${{$compra->total_compra}}</td>
                                 <td>{{$compra->created_at}}</td>
 
                                 <td class="actions">

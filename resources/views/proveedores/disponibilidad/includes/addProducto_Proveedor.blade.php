@@ -103,7 +103,7 @@
 
     }
     function producto_proveedor() {
-        $('#label_producto_completo').text('Cantidad: '+cantidad+' | Precio Ofrecido: '+precio_ofrecido+' | Unidad de Medida: '+disponibilidad);
+        $('#label_producto_completo').text('Cantidad: '+cantidad+' | Precio Ofrecido: '+precio_ofrecido+' | Estado: '+disponibilidad);
     }
 
 

@@ -62,9 +62,10 @@ class VentaController extends Controller
         foreach (Cart::instance('venta')->content() as $cartItem){
 //            $id[]=$cartItem->id;
             $detalle_venta= new DetalleVenta();
-            $detalle_venta->venta_id =              $venta->id;
-            $detalle_venta->inventario_id=          $cartItem->id;
-            $detalle_venta->cantidad=               $cartItem->qty;
+            $detalle_venta->venta_id =      $venta->id;
+            $detalle_venta->inventario_id=  $cartItem->id;
+            $detalle_venta->cantidad=       $cartItem->qty;
+            $detalle_venta->precio=         $cartItem->price;
             $detalle_venta->save();
 
             $inventario= Inventario::findOrFail($cartItem->id);

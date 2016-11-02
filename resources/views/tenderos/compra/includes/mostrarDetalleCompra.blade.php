@@ -102,7 +102,7 @@
                         ] ).draw( false );
                         total+=parseFloat(data[item].cantidad_detalle_compra)*parseFloat(data[item].precio);
                     }
-                    $('#total_compra').text('Total de Venta: $'+total);
+                    $('#total_compra').text('Total de Compra: $'+total);
 
                     $("#mostrar-detalle-compra").modal('toggle');
                 }

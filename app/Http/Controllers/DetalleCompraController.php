@@ -56,7 +56,7 @@ class DetalleCompraController extends Controller
             ->join('proveedor', 'producto_proveedor.proveedor_id', '=', 'proveedor.id')
             ->select(
                 'detalle_compra.cantidad AS cantidad_detalle_compra',
-                'producto_proveedor.precio_ofrecido AS precio',
+                'detalle_compra.precio AS precio',
                 'producto.nombre AS nombre_producto',
                 'producto.medida AS medida',
                 'unidad_medida.nombre AS unidad_medida',

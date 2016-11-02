@@ -27,13 +27,16 @@ class CompraController extends Controller
 
         $compras= DB::table('compra')
             ->join('proveedor', 'compra.proveedor_id', '=', 'proveedor.id')
+            ->join('detalle_compra', 'detalle_compra.compra_id', '=', 'compra.id')
             ->select(
                 'compra.id',
                 'proveedor.nombre',
+                DB::raw('sum(detalle_compra.precio*detalle_compra.cantidad) AS total_compra'),
                 'compra.created_at'
 
             )
             ->where('compra.tendero_id','=',Auth::guard('web_tendero')->user()->id)
+            ->groupBy('compra.id','proveedor.nombre','compra.created_at')
         ->get();
 //        dd($compras);
 
@@ -86,6 +89,7 @@ class CompraController extends Controller
                         $detalle_compra->compra_id =            $compra->id;
                         $detalle_compra->producto_proveedor_id= $cartItem->id;
                         $detalle_compra->cantidad=              $cartItem->qty;
+                        $detalle_compra->precio=                $cartItem->price;
                         $detalle_compra->save();
 
                         $producto_proveedor= ProductoProveedor::findOrFail($cartItem->id);

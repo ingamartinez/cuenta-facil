@@ -13,7 +13,7 @@
             <div class="pull-right">
                 <ul class="nav navbar-nav pull-right">
                     <li class="dropdown user "><a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <img width="34" height="34" src="images/user_icon.png"/>John Smith<b class="caret"></b></a>
+                            <img width="34" height="34" src="images/user_icon.png"/>{{Auth::guard('web_proveedor')->user()->nombre}}<b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><a href="#">
                                     <i class="fa fa-user"></i>My Account</a>

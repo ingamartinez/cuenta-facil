@@ -57,7 +57,7 @@ class DetalleVentaController extends Controller
 
             ->select(
                 'detalle_venta.cantidad AS cantidad_detalle_venta',
-                'inventario.precio_venta_actual AS precio',
+                'detalle_venta.precio AS precio',
                 'producto.nombre AS nombre_producto',
                 'producto.medida AS medida',
                 'unidad_medida.nombre AS unidad_medida',
