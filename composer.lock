@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "360dd5df78d988d1164134f90b66dc87",
-    "content-hash": "031dfe421e2bf3fde85bfdb3e948f698",
+    "hash": "c2eaa8cdc8a865d7a3d574450fa5aef1",
+    "content-hash": "8f82ee7dedc58c5e3562bd3baf82d7d5",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -790,6 +790,62 @@
                 "schedule"
             ],
             "time": "2016-01-26 21:23:30"
+        },
+        {
+            "name": "nanigans/single-table-inheritance",
+            "version": "0.7.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Nanigans/single-table-inheritance.git",
+                "reference": "4ced9db2450f32f6cb478dd79113b5014a199a38"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Nanigans/single-table-inheritance/zipball/4ced9db2450f32f6cb478dd79113b5014a199a38",
+                "reference": "4ced9db2450f32f6cb478dd79113b5014a199a38",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "5.2.*|5.3.*",
+                "illuminate/support": "5.2.*|5.3.*",
+                "php": ">= 5.5.9"
+            },
+            "require-dev": {
+                "mockery/mockery": "0.9.*",
+                "orchestra/testbench": "3.2.*",
+                "phpunit/phpunit": "~4.8|~5.2"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.8.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Nanigans\\SingleTableInheritance\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jon Palmer",
+                    "email": "jpalmer@nanigans.com"
+                }
+            ],
+            "description": "Single Table Inheritance Trait",
+            "keywords": [
+                "eloquent",
+                "inheritance",
+                "laravel",
+                "model",
+                "single",
+                "table"
+            ],
+            "time": "2016-08-29 14:28:32"
         },
         {
             "name": "nesbot/carbon",
