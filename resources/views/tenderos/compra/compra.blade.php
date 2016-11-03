@@ -41,7 +41,7 @@
                     </li>
                     <li>
                         <a href="{{route('proveedor-informal.index')}}">
-                            <span aria-hidden="true" class="se7en-tables"></span>Proveedores Informales</a>
+                            <span aria-hidden="true" class="se7en-feed"></span>Proveedores Informales</a>
                     </li>
                     <li>
                         <a href="{{route('vitrina.index')}}">
