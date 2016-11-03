@@ -40,6 +40,10 @@
                             <span aria-hidden="true" class="se7en-home"></span>Dashboard</a>
                     </li>
                     <li>
+                        <a href="{{route('proveedor-informal.index')}}">
+                            <span aria-hidden="true" class="se7en-tables"></span>Proveedores Informales</a>
+                    </li>
+                    <li>
                         <a href="{{route('vitrina.index')}}">
                             <span aria-hidden="true" class="se7en-tables"></span>Mi Vitrina</a>
                     </li>

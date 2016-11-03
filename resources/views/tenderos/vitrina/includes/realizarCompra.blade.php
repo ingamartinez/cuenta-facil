@@ -144,6 +144,7 @@
             url: 'carrito-compra',
             data: $(this).serialize(),
             success: function (data) {
+                $("#modal-realizar-compra").modal('toggle');
                 swal({
                     title: 'Se añadió al Carrito',
                     type: 'success',

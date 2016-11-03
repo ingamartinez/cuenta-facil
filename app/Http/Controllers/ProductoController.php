@@ -46,7 +46,7 @@ class ProductoController extends Controller
                 'unidad_medida.id AS id',
                 'unidad_medida.nombre AS nombre'
             )
-            ->get();
+        ->get();
 
 
         return view('proveedores.producto.producto',compact('productos','presentaciones','unidades_medidas'));

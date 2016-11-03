@@ -41,9 +41,16 @@ Route::resource('detalle-compra','DetalleCompraController');
 Route::resource('ventas','VentaController');
 Route::resource('detalle-venta','DetalleVentaController');
 Route::resource('inventario','InventarioController');
+Route::resource('proveedor-informal','ProveedorInformalController');
 
 Route::get('inventario2/{id}',
     ['uses' => 'InventarioController@show2', 'as' => 'inventario2.show']);
+
+Route::post('disponibilidad2/{id}',
+    ['uses' => 'DisponibilidadController@store2', 'as' => 'disponibilidad2.store']);
+
+Route::get('proveedor-informal2/{id}',
+    ['uses' => 'ProveedorInformalController@show2', 'as' => 'show2.store']);
 
 
 Route::get('usuario', function () {

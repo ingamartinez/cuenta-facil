@@ -1,10 +1,13 @@
-@include('proveedores.producto.includes.addProducto')
-@include('proveedores.producto.includes.editProducto')
+@include('tenderos.proveedor.includes.addProveedor')
+@include('tenderos.proveedor.includes.addProducto_Proveedor')
+@include('tenderos.proveedor.includes.editProductoProveedor')
+
+
 
 @extends('layouts.dashboard')
 
 @section('title')
-    Cuenta Fácil | Disponibilidad
+    Cuenta Fácil | Proveedores Informales
 @endsection
 
 @section('nagivation')
@@ -13,7 +16,7 @@
             <div class="pull-right">
                 <ul class="nav navbar-nav pull-right">
                     <li class="dropdown user "><a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <img width="34" height="34" src="images/user_icon.png"/>{{Auth::guard('web_proveedor')->user()->nombre}}<b class="caret"></b></a>
+                            <img width="34" height="34" src="{{URL::asset('/images/user_icon.png')}}"/>{{Auth::guard('web_tendero')->user()->nombre}}<b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><a href="#">
                                     <i class="fa fa-user"></i>My Account</a>
@@ -35,20 +38,32 @@
             <div class="nav-collapse">
                 <ul class="nav">
                     <li>
-                        <a href="{{route('proveedor.index')}}">
+                        <a href="{{route('tendero.index')}}">
                             <span aria-hidden="true" class="se7en-home"></span>Dashboard</a>
                     </li>
                     <li>
-                        <a class="current" href="producto">
-                            <span aria-hidden="true" class="se7en-tables"></span>Producto</a>
+                        <a class="current" href="{{route('proveedor-informal.index')}}">
+                            <span aria-hidden="true" class="se7en-feed"></span>Proveedores Informales</a>
                     </li>
                     <li>
-                        <a href="disponibilidad">
-                            <span aria-hidden="true" class="se7en-flag"></span>Disponibilidad</a>
+                        <a href="{{route('vitrina.index')}}">
+                            <span aria-hidden="true" class="se7en-tables"></span>Mi Vitrina</a>
+                    </li>
+                    <li>
+                        <a href="clientes">
+                            <span aria-hidden="true" class="se7en-forms"></span>Mis Clientes</a>
+                    </li>
+                    <li>
+                        <a href="compras">
+                            <span aria-hidden="true" class="se7en-flag"></span>Compras</a>
+                    </li>
+                    <li>
+                        <a href="ventas">
+                            <span aria-hidden="true" class="se7en-pages"></span>Ventas</a>
                     </li>
                     {{--<li>--}}
-                        {{--<a href="vitrina">--}}
-                            {{--<span aria-hidden="true" class="se7en-feed"></span>Vitrina</a>--}}
+                    {{--<a href="vitrina">--}}
+                    {{--<span aria-hidden="true" class="se7en-feed"></span>Vitrina</a>--}}
                     {{--</li>--}}
 
                 </ul>
@@ -60,7 +75,7 @@
 @section('container')
     <div class="page-title">
         <h1>
-            Listado de Productos
+            Proveedores Informales
         </h1>
     </div>
 
@@ -69,7 +84,7 @@
         <div class="col-lg-12">
             <div class="widget-container fluid-height clearfix">
                 <div class="heading">
-                    <button class="btn btn-success" data-toggle="modal" href="#modal-agregar-producto">
+                    <button class="btn btn-success" data-toggle="modal" href="#modal-agregar-producto_proveedor">
                         <i class="fa fa-plus-square"></i>Agregar Producto
                     </button>
 
@@ -83,27 +98,60 @@
                             Codigo
                         </th>
                         <th>
+                            Cantidad
+                        </th>
+                        <th>
                             Producto
                         </th>
                         <th>
                             Presentación completa
                         </th>
+                        <th>
+                            Precio Ofrecido
+                        </th>
+                        <th>
+                            Estado
+                        </th>
                         <th></th>
                         </thead>
                         <tbody>
-                        @foreach($productos as $producto)
-                            <tr data-id="{{$producto->id}}">
-                                <td>{{$producto->id}}</td>
-                                <td>{{$producto->nombre}}</td>
-                                <td>{{$producto->presentacion.' de '.$producto->medida.' '.$producto->unidad_medida}}</td>
+                        @foreach($productos_proveedores as $productos)
+                            <tr
+                                    {{--data-id_global="{{$productos->id_producto_global}}"--}}
+                                    data-id="{{$productos->id_producto_local}}">
+                                <td>{{$productos->id_producto_global}}</td>
+                                <td>{{$productos->cantidad}}</td>
+                                <td>{{$productos->nombre}}</td>
+
+
+                                <td>{{$productos->presentacion.' de '.$productos->medida.' '.$productos->unidad_medida}}</td>
+                                <td>${{$productos->precio}}</td>
+
+
+                                @if ($productos->estado === 'disponible')
+                                    <td>
+                                        <span class="label label-success">Disponible</span>
+                                    </td>
+                                @elseif ($productos->estado === 'agotado')
+                                    <td>
+                                        <span class="label label-danger">Agotado</span>
+                                    </td>
+                                @else
+                                    <td>
+                                        <span class="label label-warning">Descontinuado</span>
+                                    </td>
+                                @endif
 
                                 <td class="actions">
                                     <div class="action-buttons">
-                                        <a class="table-actions editar-producto" href="#">
+                                        <a class="table-actions editar-producto_proveedor" href="#">
                                             <i class="fa fa-pencil"></i>
                                         </a>
-                                        <a class="table-actions eliminar-producto" href="#">
+                                        <a class="table-actions eliminar-producto_proveedor" href="#">
                                             <i class="fa fa-trash-o"></i>
+                                        </a>
+                                        <a class="table-actions ofrecer-producto_proveedor" href="#">
+                                            <i class="fa fa-arrow-right"></i>
                                         </a>
                                     </div>
                                 </td>
@@ -116,6 +164,7 @@
             </div>
         </div>
     </div>
+
 
 @endsection
 
@@ -141,13 +190,9 @@
             aoColumnDefs: [{
                 bSortable: false,
                 "aTargets": [-1]
-            }]
+            }],
         });
     });
-
-
-
-
 
 
 </script>

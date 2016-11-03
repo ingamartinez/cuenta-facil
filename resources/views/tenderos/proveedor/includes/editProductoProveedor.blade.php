@@ -86,7 +86,7 @@
         var id = fila.data('id');
         $.ajax({
             type: 'GET',
-            url: 'disponibilidad/' + id,
+            url: '/disponibilidad/' + id,
             success: function (data) {
                 console.log(data);
                 $('select[id="modal-editar-producto-producto_proveedor"]').val(data.producto_id);
@@ -107,7 +107,7 @@
 
         $.ajax({
             type: 'PUT',
-            url: 'disponibilidad/' + id,
+            url: '/disponibilidad/' + id,
             data: $(this).serialize(),
             success: function () {
                 location.reload();
