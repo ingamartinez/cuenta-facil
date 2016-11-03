@@ -352,7 +352,6 @@
         });
     });
 
-
 </script>
 
 @endpush
