@@ -156,7 +156,7 @@
 
     $('#modal-editar-precio_venta').keyup(function(){
         var precioCompra = parseFloat($('#modal-editar-precio_compra').val().replace('$',''));
-        var precioVenta =  parseFloat($('#modal-editar-precio_venta').val()).replace('$','');
+        var precioVenta =  parseFloat($('#modal-editar-precio_venta').val().replace('$',''));
 
         console.log(precioCompra,precioVenta)
 

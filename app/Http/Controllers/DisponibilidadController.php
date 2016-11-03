@@ -104,6 +104,19 @@ class DisponibilidadController extends Controller
         return redirect()->back();
     }
 
+    public function store2(Request $request,$id)
+    {
+
+        $producto_proveedor=new ProductoProveedor($request->all());
+
+        $producto_proveedor->proveedor_id=$id;
+        $producto_proveedor->producto_id=$request->producto;
+
+        $producto_proveedor->save();
+
+        return redirect()->back();
+    }
+
     /**
      * Display the specified resource.
      *
