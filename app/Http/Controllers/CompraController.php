@@ -38,6 +38,13 @@ class CompraController extends Controller
             ->where('compra.tendero_id','=',Auth::guard('web_tendero')->user()->id)
             ->groupBy('compra.id','proveedor.nombre','compra.created_at')
         ->get();
+
+        $compras->total_compras=0;
+        foreach ($compras as $compra){
+
+            //Total Compra Ponderado
+            $compras->total_compras+=(double)$compra->total_compra;
+        }
 //        dd($compras);
 
         return view('tenderos.compra.compra',compact('compras'));

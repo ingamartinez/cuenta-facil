@@ -42,7 +42,6 @@ class VitrinaController extends Controller
         ->get();
 
         $inventario->total_ponderado=0;
-        $inventario->total_ganancia=0;
         foreach ($inventario as $inv){
             if($inv->precio_venta_actual!=0){
                 //Concatenar la ganancia en porcntaje
@@ -60,12 +59,9 @@ class VitrinaController extends Controller
                 $inv->ganancia_pesos = "";
                 $inv->ganancia_pesos=(double)$inv->precio_venta_actual - (double)$inv->precio_compra_ponderado;
 
-                //Total Ganancia en Pesos
-                $inventario->total_ganancia+=(double)$inv->ganancia_pesos;
-
             }
             //Total Compra Ponderado
-            $inventario->total_ponderado+=(double)$inv->precio_compra_ponderado;
+            $inventario->total_ponderado+=(double)$inv->precio_compra_ponderado*(double)$inv->cantidad;
         }
 
         $productos_proveedores= DB::table('producto_proveedor')

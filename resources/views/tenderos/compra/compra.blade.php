@@ -142,6 +142,8 @@
 
                     </div>
                 </div>
+
+
             </div>
         </div>
     </div>
@@ -200,6 +202,19 @@
 
                         </tbody>
                     </table>
+                </div>
+
+                <div class="col-lg-6">
+                    <label>Total Compras:</label><br>
+
+                    <label style="font-weight: 700;font-size: 1.5em" for="total-precio_compra">
+                        @if(isset($compras->total_compras))
+                            ${{$compras->total_compras}}
+                        @else
+                            $0
+                        @endif
+
+                    </label>
                 </div>
             </div>
         </div>

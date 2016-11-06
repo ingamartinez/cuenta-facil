@@ -117,6 +117,9 @@
                             Precio Compra Ponderado
                         </th>
                         <th>
+                            Total Compra Ponderado
+                        </th>
+                        <th>
                             Precio Venta Actual
                         </th>
                         <th>
@@ -143,6 +146,7 @@
                                 <td>{{$producto->stock_min}}</td>
                                 <td>{{$producto->stock_max}}</td>
                                 <td>${{$producto->precio_compra_ponderado}}</td>
+                                <td>${{$producto->precio_compra_ponderado*$producto->cantidad}}</td>
                                 <td>${{$producto->precio_venta_actual}}</td>
 
                                 @if(isset($producto->ganancia_pesos))
@@ -206,17 +210,6 @@
                     </label>
                 </div>
 
-
-                <div class="col-lg-6">
-                    <label >Total Ganancia:</label><br>
-                    <label style="font-weight: 700;font-size: 1.5em" for="total-ganancia">
-                        @if(isset($inventario->total_ganancia))
-                            ${{$inventario->total_ganancia}}
-                        @else
-                            $0
-                        @endif
-                    </label>
-                </div>
 
             </div>
         </div>
