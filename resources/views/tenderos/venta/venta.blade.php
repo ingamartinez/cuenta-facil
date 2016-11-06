@@ -167,6 +167,9 @@
                             Cliente
                         </th>
                         <th>
+                            Total de la Venta
+                        </th>
+                        <th>
                             Fecha de Venta
                         </th>
 
@@ -179,6 +182,7 @@
 
                                 <td>{{$venta->id}}</td>
                                 <td>{{$venta->nombre}}</td>
+                                <td>${{$venta->total_venta}}</td>
                                 <td>{{$venta->created_at}}</td>
 
                                 <td class="actions">
@@ -194,6 +198,20 @@
                         </tbody>
                     </table>
                 </div>
+
+                <div class="col-lg-6">
+                    <label>Total Ventas:</label><br>
+
+                    <label style="font-weight: 700;font-size: 1.5em" for="total-precio_venta">
+                        @if(isset($ventas->total_ventas))
+                            ${{$ventas->total_ventas}}
+                        @else
+                            $0
+                        @endif
+
+                    </label>
+                </div>
+
             </div>
         </div>
     </div>

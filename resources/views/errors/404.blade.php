@@ -27,7 +27,7 @@
     <h2>
         La pagina a la que intentas acceder no existe
     </h2>
-    <a class="btn btn-lg btn-default-outline" href="{{url('/')}}"><i class="fa fa-home"></i>Ve a la pagina principal</a>
+    <a class="btn btn-lg btn-default-outline" href="{{url('/')}}"><i class="fa fa-home"></i>Ir a la pagina principal</a>
 </div>
 <!-- End Login Screen -->
 </body>

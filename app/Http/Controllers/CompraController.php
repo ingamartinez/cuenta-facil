@@ -45,7 +45,6 @@ class CompraController extends Controller
             //Total Compra Ponderado
             $compras->total_compras+=(double)$compra->total_compra;
         }
-//        dd($compras);
 
         return view('tenderos.compra.compra',compact('compras'));
     }

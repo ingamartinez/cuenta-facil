@@ -26,13 +26,24 @@ class VentaController extends Controller
 
         $ventas= DB::table('venta')
             ->join('cliente', 'venta.cliente_id', '=', 'cliente.id')
+            ->join('detalle_venta', 'detalle_venta.venta_id', '=', 'venta.id')
             ->select(
                 'venta.id',
                 'cliente.nombre',
+                DB::raw('sum(detalle_venta.precio*detalle_venta.cantidad) AS total_venta'),
                 'venta.created_at'
             )
             ->where('venta.tendero_id','=',Auth::guard('web_tendero')->user()->id)
-            ->get();
+            ->groupBy('venta.id','cliente.nombre','venta.created_at')
+        ->get();
+
+        $ventas->total_ventas=0;
+        foreach ($ventas as $venta){
+
+            //Total Compra Ponderado
+            $ventas->total_ventas+=(double)$venta->total_venta;
+        }
+
         return view('tenderos.venta.venta',compact('ventas'));
     }
 
