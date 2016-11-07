@@ -270,7 +270,7 @@
             }]
         });
 
-        reloadTable(moment('20160101').format('YYYY-MM-DD'),moment().format('YYYY-MM-DD'))
+        reloadTable(moment().startOf('year').format('YYYY-MM-DD'),moment().format('YYYY-MM-DD'))
 
 
 
@@ -329,10 +329,7 @@
             }
         });
     });
-    $('#visualizar-venta').on('click', function (e) {
-        alert("");
 
-    });
 
     $('input[name="daterange"]').daterangepicker({
                 locale: {
@@ -368,7 +365,7 @@
                         "Diciembre"
                     ]
                 },
-                startDate: '2016-01-01'
+                startDate: moment().startOf('year').format('YYYY-MM-DD')
             },
 
             function(start, end, label) {

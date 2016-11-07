@@ -159,6 +159,9 @@
                         Mis Compras
                     </h3>
 
+                    <div class="col-md-3">
+                        <input type="text" class="form-control nombre" name="daterange" value="">
+                    </div>
                 </div>
 
                 <div class="widget-content padded clearfix">
@@ -181,24 +184,24 @@
                         <th></th>
                         </thead>
                         <tbody>
-                        @foreach($compras as $compra)
-                            <tr
-                                    data-id="{{$compra->id}}">
+                        {{--@foreach($compras as $compra)--}}
+                            {{--<tr--}}
+                                    {{--data-id="{{$compra->id}}">--}}
 
-                                <td>{{$compra->id}}</td>
-                                <td>{{$compra->nombre}}</td>
-                                <td>${{$compra->total_compra}}</td>
-                                <td>{{$compra->created_at}}</td>
+                                {{--<td>{{$compra->id}}</td>--}}
+                                {{--<td>{{$compra->nombre}}</td>--}}
+                                {{--<td>${{$compra->total_compra}}</td>--}}
+                                {{--<td>{{$compra->created_at}}</td>--}}
 
-                                <td class="actions">
-                                    <div class="action-buttons">
-                                        <a class="table-actions visualizar-compra" href="#">
-                                            <i class="fa fa-arrow-left"></i>
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-                        @endforeach
+                                {{--<td class="actions">--}}
+                                    {{--<div class="action-buttons">--}}
+                                        {{--<a class="table-actions visualizar-compra" href="#">--}}
+                                            {{--<i class="fa fa-arrow-left"></i>--}}
+                                        {{--</a>--}}
+                                    {{--</div>--}}
+                                {{--</td>--}}
+                            {{--</tr>--}}
+                        {{--@endforeach--}}
 
                         </tbody>
                     </table>
@@ -207,12 +210,12 @@
                 <div class="col-lg-6">
                     <label>Total Compras:</label><br>
 
-                    <label style="font-weight: 700;font-size: 1.5em" for="total-precio_compra">
-                        @if(isset($compras->total_compras))
-                            ${{$compras->total_compras}}
-                        @else
-                            $0
-                        @endif
+                    <label style="font-weight: 700;font-size: 1.5em" id="total-precio_compra" for="total-precio_compra">
+                        {{--@if(isset($compras->total_compras))--}}
+                            {{--${{$compras->total_compras}}--}}
+                        {{--@else--}}
+                            {{--$0--}}
+                        {{--@endif--}}
 
                     </label>
                 </div>
@@ -225,6 +228,7 @@
 @push('script')
 
 <script>
+    var table;
     $(document).ready(function () {
         $('#example').dataTable({
             "language": {
@@ -246,7 +250,7 @@
                 "aTargets": [-1]
             }]
         });
-        $('#example2').dataTable({
+        table=$('#example2').DataTable({
             "language": {
                 url: "//cdn.datatables.net/plug-ins/1.10.10/i18n/Spanish.json"
             },
@@ -266,6 +270,8 @@
                 "aTargets": [-1]
             }]
         });
+
+        reloadTable(moment().startOf('year').format('YYYY-MM-DD'),moment().format('YYYY-MM-DD'))
 
     });
 
@@ -322,6 +328,84 @@
             }
         });
     });
+
+    $('input[name="daterange"]').daterangepicker({
+            locale: {
+                "format": "YYYY/MM/DD",
+                "separator": " - ",
+                "applyLabel": "Aplicar",
+                "cancelLabel": "Cancelar",
+                "fromLabel": "Desde",
+                "toLabel": "Hasta",
+                "customRangeLabel": "Custom",
+                "weekLabel": "S",
+                "daysOfWeek": [
+                    "Do",
+                    "Lu",
+                    "Mar",
+                    "Mier",
+                    "Ju",
+                    "Vi",
+                    "Sa"
+                ],
+                "monthNames": [
+                    "Enero",
+                    "Febrero",
+                    "Marzo",
+                    "Abril",
+                    "Mayo",
+                    "Junio",
+                    "Julio",
+                    "Agosto",
+                    "Septiembre",
+                    "Octubre",
+                    "Noviembre",
+                    "Diciembre"
+                ]
+            },
+            startDate: moment().startOf('year').format('YYYY-MM-DD')
+        },
+
+        function(start, end, label) {
+            reloadTable(start.format('YYYY-MM-DD'),end.format('YYYY-MM-DD'));
+        }
+    );
+
+
+    function reloadTable(start, end) {
+        table.clear().draw();
+        var total=0;
+
+        $.ajax({
+            type: 'GET',
+            url: '{{url('consultar-compra')}}',
+            data:{'start': start, 'end': end},
+            success: function (data) {
+                console.log(data);
+                for (var item in data){
+                    table.row.add( [
+                        data[item].id,
+                        data[item].nombre,
+                        data[item].total_compra,
+                        data[item].created_at,
+                        '<div class="action-buttons">'+
+                        '<a class="table-actions visualizar-compra" href="#">'+
+                        '<i class="fa fa-arrow-left"></i>'+
+                        '</a>'+
+                        '</div>'
+                    ] ).draw().nodes()
+                            .to$()
+                            .find('td')
+                            .each(function() {
+                                $(this).closest("tr").attr('data-id', data[item].id);
+                            });
+                    total+=parseFloat(data[item].total_compra);
+                }
+                $('#total-precio_compra').text('$'+total);
+
+            }
+        });
+    }
 
 
 </script>

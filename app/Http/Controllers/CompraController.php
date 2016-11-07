@@ -25,6 +25,11 @@ class CompraController extends Controller
     public function index()
     {
 
+        return view('tenderos.compra.compra');
+    }
+
+    public function consultarCompra(Request $request){
+
         $compras= DB::table('compra')
             ->join('proveedor', 'compra.proveedor_id', '=', 'proveedor.id')
             ->join('detalle_compra', 'detalle_compra.compra_id', '=', 'compra.id')
@@ -36,17 +41,13 @@ class CompraController extends Controller
 
             )
             ->where('compra.tendero_id','=',Auth::guard('web_tendero')->user()->id)
+            ->whereDate('compra.created_at','>=',$request->start)
+            ->whereDate('compra.created_at','<=',$request->end)
             ->groupBy('compra.id','proveedor.nombre','compra.created_at')
         ->get();
 
-        $compras->total_compras=0;
-        foreach ($compras as $compra){
 
-            //Total Compra Ponderado
-            $compras->total_compras+=(double)$compra->total_compra;
-        }
-
-        return view('tenderos.compra.compra',compact('compras'));
+        return response()->json($compras);
     }
 
     /**

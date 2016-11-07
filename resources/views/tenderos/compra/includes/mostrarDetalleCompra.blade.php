@@ -78,7 +78,7 @@
             }]
         });
 
-        $('.visualizar-compra').on('click', function (e) {
+        $(document).delegate('.visualizar-compra', 'click', function(e) {
             t.clear().draw();
             e.preventDefault();
             var fila = $(this).parents('tr');

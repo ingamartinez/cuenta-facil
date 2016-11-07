@@ -55,6 +55,9 @@ Route::get('proveedor-informal2/{id}',
 Route::get('consultar-venta',
     ['uses' => 'VentaController@consultarVenta', 'as' => 'consultar-venta']);
 
+Route::get('consultar-compra',
+    ['uses' => 'CompraController@consultarCompra', 'as' => 'consultar-compra']);
+
 
 Route::get('usuario', function () {
 

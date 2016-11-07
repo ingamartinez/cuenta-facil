@@ -40,7 +40,7 @@ class VentaController extends Controller
                 'venta.created_at'
             )
             ->where('venta.tendero_id','=',Auth::guard('web_tendero')->user()->id)
-            ->whereDate('venta.created_at','>',$request->start)
+            ->whereDate('venta.created_at','>=',$request->start)
             ->whereDate('venta.created_at','<=',$request->end)
             ->groupBy('venta.id','cliente.nombre','venta.created_at')
             ->get();
