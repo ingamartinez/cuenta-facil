@@ -63,9 +63,9 @@
 @push('script')
 
 <script>
-
+var t;
     $(document).ready(function () {
-        var t = $('#example3').DataTable({
+        t = $('#example3').DataTable({
             "language": {
                 url: "//cdn.datatables.net/plug-ins/1.10.10/i18n/Spanish.json"
             },
@@ -87,40 +87,43 @@
 
         });
 
-        $('.visualizar-venta').on('click', function (e) {
-            t.clear().draw();
-            e.preventDefault();
-            var fila = $(this).parents('tr');
-            var id = fila.data('id');
 
-            var total=0;
+
+    });
+
+//    $('.visualizar-venta').click(function (e) {
+    $(document).delegate('.visualizar-venta', 'click', function(e) {
+        t.clear().draw();
+        e.preventDefault();
+        var fila = $(this).parents('tr');
+        var id = fila.data('id');
+
+        var total=0;
 
 //        alert(id);
 
 
-            $.ajax({
-                type: 'GET',
-                url: 'detalle-venta/' + id,
-                success: function (data) {
-                    for (var item in data){
-                        t.row.add( [
-                            data[item].cantidad_detalle_venta,
-                            data[item].precio,
-                            data[item].nombre_producto,
+        $.ajax({
+            type: 'GET',
+            url: 'detalle-venta/' + id,
+            success: function (data) {
+                for (var item in data){
+                    t.row.add( [
+                        data[item].cantidad_detalle_venta,
+                        data[item].precio,
+                        data[item].nombre_producto,
 
 
 //                            data[item].nombre_cliente
-                            "Por Defecto"
-                        ] ).draw( false );
-                        total+=parseFloat(data[item].cantidad_detalle_venta)*parseFloat(data[item].precio);
-                    }
-                    $('#total_venta').text('Total de Venta: $'+total);
-
-                    $("#mostrar-detalle-venta").modal('toggle');
+                        "Por Defecto"
+                    ] ).draw( false );
+                    total+=parseFloat(data[item].cantidad_detalle_venta)*parseFloat(data[item].precio);
                 }
-            });
-        });
+                $('#total_venta').text('Total de Venta: $'+total);
 
+                $("#mostrar-detalle-venta").modal('toggle');
+            }
+        });
     });
 
 

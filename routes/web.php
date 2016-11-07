@@ -52,6 +52,9 @@ Route::post('disponibilidad2/{id}',
 Route::get('proveedor-informal2/{id}',
     ['uses' => 'ProveedorInformalController@show2', 'as' => 'show2.store']);
 
+Route::get('consultar-venta',
+    ['uses' => 'VentaController@consultarVenta', 'as' => 'consultar-venta']);
+
 
 Route::get('usuario', function () {
 

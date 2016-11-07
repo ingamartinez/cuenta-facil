@@ -24,6 +24,12 @@ class VentaController extends Controller
     {
 
 
+
+        return view('tenderos.venta.venta');
+    }
+
+    public function consultarVenta(Request $request){
+//        dd($request->all());
         $ventas= DB::table('venta')
             ->join('cliente', 'venta.cliente_id', '=', 'cliente.id')
             ->join('detalle_venta', 'detalle_venta.venta_id', '=', 'venta.id')
@@ -34,17 +40,13 @@ class VentaController extends Controller
                 'venta.created_at'
             )
             ->where('venta.tendero_id','=',Auth::guard('web_tendero')->user()->id)
+            ->whereDate('venta.created_at','>',$request->start)
+            ->whereDate('venta.created_at','<=',$request->end)
             ->groupBy('venta.id','cliente.nombre','venta.created_at')
-        ->get();
+            ->get();
 
-        $ventas->total_ventas=0;
-        foreach ($ventas as $venta){
 
-            //Total Compra Ponderado
-            $ventas->total_ventas+=(double)$venta->total_venta;
-        }
-
-        return view('tenderos.venta.venta',compact('ventas'));
+        return response()->json($ventas);
     }
 
     /**

@@ -154,7 +154,12 @@
                         Mis Compras
                     </h3>
 
+                    <div class="col-md-3">
+                        <input type="text" class="form-control nombre" name="daterange" value="">
+                    </div>
+
                 </div>
+
 
                 <div class="widget-content padded clearfix">
                     <table class="table table-bordered table-striped" id="example2">
@@ -176,24 +181,24 @@
                         <th></th>
                         </thead>
                         <tbody>
-                        @foreach($ventas as $venta)
-                            <tr
-                                    data-id="{{$venta->id}}">
+                        {{--@foreach($ventas as $venta)--}}
+                            {{--<tr--}}
+                                    {{--data-id="{{$venta->id}}">--}}
 
-                                <td>{{$venta->id}}</td>
-                                <td>{{$venta->nombre}}</td>
-                                <td>${{$venta->total_venta}}</td>
-                                <td>{{$venta->created_at}}</td>
+                                {{--<td>{{$venta->id}}</td>--}}
+                                {{--<td>{{$venta->nombre}}</td>--}}
+                                {{--<td>${{$venta->total_venta}}</td>--}}
+                                {{--<td>{{$venta->created_at}}</td>--}}
 
-                                <td class="actions">
-                                    <div class="action-buttons">
-                                        <a class="table-actions visualizar-venta" href="#">
-                                            <i class="fa fa-arrow-left"></i>
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-                        @endforeach
+                                {{--<td class="actions">--}}
+                                    {{--<div class="action-buttons">--}}
+                                        {{--<a class="table-actions visualizar-venta" href="#">--}}
+                                            {{--<i class="fa fa-arrow-left"></i>--}}
+                                        {{--</a>--}}
+                                    {{--</div>--}}
+                                {{--</td>--}}
+                            {{--</tr>--}}
+                        {{--@endforeach--}}
 
                         </tbody>
                     </table>
@@ -202,12 +207,12 @@
                 <div class="col-lg-6">
                     <label>Total Ventas:</label><br>
 
-                    <label style="font-weight: 700;font-size: 1.5em" for="total-precio_venta">
-                        @if(isset($ventas->total_ventas))
-                            ${{$ventas->total_ventas}}
-                        @else
-                            $0
-                        @endif
+                    <label style="font-weight: 700;font-size: 1.5em" id="total-precio_venta" for="total-precio_venta">
+                        {{--@if(isset($ventas->total_ventas))--}}
+                            {{--${{$ventas->total_ventas}}--}}
+                        {{--@else--}}
+                            {{--$0--}}
+                        {{--@endif--}}
 
                     </label>
                 </div>
@@ -221,6 +226,8 @@
 @push('script')
 
 <script>
+
+    var table;
     $(document).ready(function () {
         $('#example').dataTable({
             "language": {
@@ -242,7 +249,7 @@
                 "aTargets": [-1]
             }]
         });
-        $('#example2').dataTable({
+        table=$('#example2').DataTable({
             "language": {
                 url: "//cdn.datatables.net/plug-ins/1.10.10/i18n/Spanish.json"
             },
@@ -262,6 +269,10 @@
                 "aTargets": [-1]
             }]
         });
+
+        reloadTable(moment('20160101').format('YYYY-MM-DD'),moment().format('YYYY-MM-DD'))
+
+
 
     });
 
@@ -318,6 +329,88 @@
             }
         });
     });
+    $('#visualizar-venta').on('click', function (e) {
+        alert("");
+
+    });
+
+    $('input[name="daterange"]').daterangepicker({
+                locale: {
+                    "format": "YYYY/MM/DD",
+                    "separator": " - ",
+                    "applyLabel": "Aplicar",
+                    "cancelLabel": "Cancelar",
+                    "fromLabel": "Desde",
+                    "toLabel": "Hasta",
+                    "customRangeLabel": "Custom",
+                    "weekLabel": "S",
+                    "daysOfWeek": [
+                        "Do",
+                        "Lu",
+                        "Mar",
+                        "Mier",
+                        "Ju",
+                        "Vi",
+                        "Sa"
+                    ],
+                    "monthNames": [
+                        "Enero",
+                        "Febrero",
+                        "Marzo",
+                        "Abril",
+                        "Mayo",
+                        "Junio",
+                        "Julio",
+                        "Agosto",
+                        "Septiembre",
+                        "Octubre",
+                        "Noviembre",
+                        "Diciembre"
+                    ]
+                },
+                startDate: '2016-01-01'
+            },
+
+            function(start, end, label) {
+                reloadTable(start.format('YYYY-MM-DD'),end.format('YYYY-MM-DD'));
+            });
+
+
+    function reloadTable(start, end) {
+        table.clear().draw();
+        var total=0;
+
+        $.ajax({
+            type: 'GET',
+            url: '{{url('consultar-venta')}}',
+            data:{'start': start, 'end': end},
+            success: function (data) {
+                console.log(data);
+                for (var item in data){
+                    table.row.add( [
+                        data[item].id,
+                        data[item].nombre,
+                        data[item].total_venta,
+                        data[item].created_at,
+                            '<div class="action-buttons">'+
+                            '<a class="table-actions visualizar-venta" href="#">'+
+                            '<i class="fa fa-arrow-left"></i>'+
+                            '</a>'+
+                            '</div>'
+                    ] ).draw().nodes()
+                            .to$()
+                            .find('td')
+                            .each(function() {
+                                $(this).closest("tr").attr('data-id', data[item].id);
+                            });
+                    total+=parseFloat(data[item].total_venta);
+                }
+                $('#total-precio_venta').text('$'+total);
+
+            }
+        });
+    }
+
 
 
 </script>

@@ -42,7 +42,10 @@
     <link href="{{URL::asset('stylesheets/dropzone.css')}}" media="screen" rel="stylesheet" type="text/css"/>
     <link href="{{URL::asset('stylesheets/sweetalert2.min.css')}}" media="screen" rel="stylesheet" type="text/css"/>
 
+    <!-- Include Required Prerequisites -->
 
+    <!-- Include Date Range Picker -->
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
 
 
 
@@ -117,6 +120,10 @@
 <script src="{{URL::asset('javascripts/jquery.autocomplete.js')}}" type="text/javascript"></script>
 <script src="{{URL::asset('javascripts/sweetalert2.min.js')}}" type="text/javascript"></script>
 <script src="{{URL::asset('javascripts/sum().js')}}" type="text/javascript"></script>
+
+<script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+
 
 
 @stack('script')
