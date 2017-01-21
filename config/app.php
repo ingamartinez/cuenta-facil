@@ -186,7 +186,14 @@ return [
         /*
          * Crinsane - Laravel Shopping Cart
          */
-        Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class
+        Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
+
+        /*
+         * Laravel IDE Helper
+         */
+
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class
+
 
 
     ],

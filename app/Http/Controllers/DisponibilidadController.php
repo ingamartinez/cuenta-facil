@@ -101,7 +101,7 @@ class DisponibilidadController extends Controller
 
         $producto_proveedor->save();
 
-        return redirect()->back();
+        return response()->redirect()->back();
     }
 
     public function store2(Request $request,$id)
